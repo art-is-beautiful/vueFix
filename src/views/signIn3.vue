@@ -3,7 +3,7 @@
         <myHeader headerFirstText="Back to" headerSecondText="Sign in"></myHeader>
         <div class="content-center">
             <img src="../../public/img/recoveryMail.svg" alt="img">
-            <mysignTopText class="signTopText" signTopText="You are almost ready to go"></mysignTopText>
+            <mysignTopText class="signTopText fs-3em" signTopText="You are almost ready to go"></mysignTopText>
             <p class="additional_text">Please check your email to reset your password</p>
         </div>
         <img src="../../public/img/ellipse/Ellipse.svg" alt="ellipse" class="ellipse">
@@ -37,8 +37,9 @@ body{
     font-size: 16px;
     background-color: #f9fafc;
 }
-.signTopText{
+.fs-3em{
     font-size: 3.125em;
+    // font-size: 1.125em;
 }
 .additional_text{
     font-family: "Exo 2";
@@ -65,9 +66,7 @@ body{
     z-index: -1;
 }
 @media (max-width:850px){
-    .signTopText{
-         font-size: 2.525em;
-    }
+
     .ellipse{
         vertical-align: middle;
     }

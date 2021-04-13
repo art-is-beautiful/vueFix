@@ -2,11 +2,11 @@
     <div>
         <myHeader headerFirstText="Don't have an account?" headerSecondText="Sign up"></myHeader>
         <background class="background1"></background>
-        <div class="background1__wrapper">
+        <div class="background1__wrapper4">
             <mysignTopText class="mysignTopText" signTopText="Reset your password"></mysignTopText>
             <myInput1 input1_type="password" class="input1" input1_placeholder="New password" />
             <myInput2 input1_type="password" class="input1 mb-13px mb-21px" input1_placeholder="Confirm password" />
-            <myButton1 class="myButton1" button1_text="Sign in"/>
+            <myButton1 class="myButton1" button1_text="Reset"/>
         </div>
     </div>
 </template>
@@ -48,7 +48,7 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
-    &__wrapper{
+    &__wrapper4{
         position: absolute;
         top: 50%;
         left: 50%;
@@ -88,10 +88,10 @@ body{
 }
 
 @media (max-width:450px){
-    .background1__wrapper{
-        margin-left: 7.25em;
-        margin-right: 14.5em;
-    }
+    // .background1__wrapper4{
+    //     margin-left: 7.25em;
+    //     margin-right: 14.5em;
+    // }
 }
 
 </style>

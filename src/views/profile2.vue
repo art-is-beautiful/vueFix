@@ -1,8 +1,8 @@
 <template>
     <div>
         <myNav></myNav>
-        <myHeader headerFirstText="Home" headerSecondText="My profile"></myHeader>
-        <background class="background1"></background>
+        <myProfileHeader headerFirstText="Home" headerSecondText="My profile"></myProfileHeader>
+        <background class="background1Prof"></background>
         <div class="profileWrapper">
             <header class="profileWrapper__header">
                 <a href="#" class="profileWrapper__header-text">PERSONAL INFORMATION </a>
@@ -12,11 +12,11 @@
             <div class="profileWrapper__content">
                 <div class="mr-5em">
                     <h3 class="profileWrapper__column-text mg-top-0">User Name </h3>
-                    <myInput1 input1_type="text" class="input1" input1_placeholder="User name" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="User name" />
                 </div>
-                <div>
+                <div class="mr-25em">
                     <h3 class="profileWrapper__column-text mg-top-0">E-MAIL </h3>
-                    <myInput1 input1_type="text" class="input1" input1_placeholder="E-mail" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="E-mail" />
                 </div>
             </div>
             <a href="#" class="changePass">
@@ -30,7 +30,7 @@
 
 <script>
 
-import myHeader from '../components/controllers/header/profileHeader.vue'
+import myProfileHeader from '../components/controllers/header/profileHeader.vue'
 import background from '../components/controllers/backgrounds/background_profile.vue'
 import myInput1 from '../components/controllers/input1.vue'
 import myNav from '../components/controllers/leftNav.vue'
@@ -40,7 +40,7 @@ export default {
     components: {
         myInput1,
         background,
-        myHeader,
+        myProfileHeader,
         myNav,
     }
 }
@@ -55,7 +55,7 @@ body{
     font-size: 16px;
     background-color: #f9fafc;
 }
-.background1{
+.background1Prof{
     // margin: 0 20px;
     position: absolute;
     width: 100%;
@@ -111,7 +111,7 @@ body{
     }
 
 }
-.input1{
+.input1Prof{
     width: 19.5em;
 }
 
@@ -130,6 +130,9 @@ body{
 }
 .mr-5em{
     margin-right: 5em;
+}
+.mr-25em{
+    margin-right: 25em;
 }
 
 .active-line1{
@@ -181,13 +184,13 @@ body{
     // .profileWrapper__avatar{
     //     width: 30vw;
     // }
-    .input1{
+    .input1Prof{
         width: 80%;
     }
     .active-line1{
         width: 42.5%;
     }
-    .background1{
+    .background1Prof{
         width: 90%;
         height: 70%;
     }
@@ -218,7 +221,7 @@ body{
     .profileWrapper__avatar{
         width: 70vw;
     }
-    .input1{
+    .input1Prof{
         width: 65%;
     }
     .mr-5em{

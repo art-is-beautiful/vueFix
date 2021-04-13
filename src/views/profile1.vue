@@ -1,8 +1,8 @@
 <template>
     <div>
         <myNav></myNav>
-        <myHeader headerFirstText="Home" headerSecondText="My profile"></myHeader>
-        <background class="background1"></background>
+        <myProfileHeader headerFirstText="Home" headerSecondText="My profile"></myProfileHeader>
+        <background class="backgroundProfile"></background>
         <div class="profileWrapper">
             <header class="profileWrapper__header">
                 <a href="#" class="profileWrapper__header-text">PERSONAL INFORMATION </a>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="profileWrapper__column">
                     <h3 class="profileWrapper__column-text mg-top-0">First Name </h3>
-                    <myInput1 input1_type="text" class="input1" input1_placeholder="Name" value="Artem" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="Name" value="Artem" />
                     <h3 class="profileWrapper__column-text">Title </h3>
                     <mySelect class="" optionOne="Mr" optionTwo="Ms" optionThree="None" optionFour="anonim"></mySelect>
                     <h3 class="profileWrapper__column-text">Country </h3>
@@ -30,11 +30,11 @@
                 </div>
                 <div class="">
                     <h3 class="profileWrapper__column-text mg-top-0">Last Name </h3>
-                    <myInput1 input1_type="text" class="input1" input1_placeholder="Last name" value="Chornyi" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="Last name" value="Chornyi" />
                     <h3 class="profileWrapper__column-text">Mobile phone </h3>
-                    <myInput1 input1_type="text" class="input1" input1_placeholder="0500500505" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="0500500505" />
                     <h3 class="profileWrapper__column-text">Categoty </h3>
-                    <myInput1 input1_type="text" class="input1" input1_placeholder="category" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="category" />
                 </div>
             </div>
         </div> 
@@ -44,7 +44,7 @@
 
 <script>
 
-import myHeader from '../components/controllers/header/profileHeader.vue'
+import myProfileHeader from '../components/controllers/header/profileHeader.vue'
 import background from '../components/controllers/backgrounds/background_profile.vue'
 import myInput1 from '../components/controllers/input1.vue'
 import mySelect from '../components/controllers/select1.vue'
@@ -55,14 +55,14 @@ export default {
     components: {
         myInput1,
         background,
-        myHeader,
+        myProfileHeader,
         mySelect,
         myNav,
     }
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 @import "../public/scss/reset.scss";
 @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
@@ -71,7 +71,7 @@ body{
     font-size: 16px;
     background-color: #f9fafc;
 }
-.background1{
+.backgroundProfile{
     // margin: 0 20px;
     position: absolute;
     width: 100%;
@@ -127,7 +127,7 @@ body{
     }
 
 }
-.input1{
+.input1Prof{
     width: 19.5em;
 }
 
@@ -176,13 +176,13 @@ body{
     // .profileWrapper__avatar{
     //     width: 30vw;
     // }
-    .input1{
+    .input1Prof{
         width: 80%;
     }
     .active-line1{
         width: 42.5%;
     }
-    .background1{
+    .backgroundProfile{
         width: 90%;
         height: 70%;
     }
@@ -213,7 +213,7 @@ body{
     .profileWrapper__avatar{
         width: 70vw;
     }
-    .input1{
+    .input1Prof{
         width: 65%;
     }
 }

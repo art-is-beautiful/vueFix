@@ -1,16 +1,16 @@
 <template>
-    <div class="myHeader">
-        <div class="myHeader__wrapper">
-            <div class="myHeader__nav">
-                <a href="#" class="myHeader__link ">{{headerFirstText}}</a>
+    <div class="myProfHeader">
+        <div class="myProfHeader__wrapper">
+            <div class="myProfHeader__nav">
+                <a href="#" class="myProfHeader__link ">{{headerFirstText}}</a>
                 <!-- <img src="../../../../public/img/Active_line.svg" class="myHeader__link-active1" alt="active line"> -->
                 <span class="arrow_right"> > </span>
-                <a href="#" class="myHeader__link ">{{headerSecondText}}</a>
+                <a href="#" class="myProfHeader__link ">{{headerSecondText}}</a>
                 <span class="arrow_right" v-if="headerThirdText"> > </span>
-                <a href="#" class="myHeader__link ">{{headerThirdText}}</a>
+                <a href="#" class="myProfHeader__link ">{{headerThirdText}}</a>
             </div>
-            <div class="myHeader__dropdown">
-                <select name="choice-header" id="choice-header" class="myHeader__dropdown-select" onchange="javascript:handleSelect(this)">
+            <div class="myProfHeader__dropdown">
+                <select name="choice-header" id="choice-header" class="myProfHeader__dropdown-select" onchange="javascript:handleSelect(this)">
                     <option value="account" selected>Artem Chornyi</option>
                     <option value="settings">Settings</option>
                     <option value="about">About</option>
@@ -45,7 +45,7 @@ body{
     font-size: 16px;
 }
 
-.myHeader{
+.myProfHeader{
     background-color: #fff;
     width: 100%;
     height: 3.8125em;

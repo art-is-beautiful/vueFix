@@ -1,6 +1,18 @@
 <template>
 <div>
-    <button class="myButton1">{{ button1_text }}</button>
+    <button class="myButton1">
+        <router-link v-if="button1_text=='Sign in'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='Send'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='Reset'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='Get started'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='Done!'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='SEARCH'" to="/#" style="text-decoration:none; color:white; text-align:center">{{ button1_text }}</router-link>
+        <!-- <router-link v-else to="/#" style="text-decoration:none; color:white; text-align:center">{{ button1_text }}</router-link> -->
+        <!-- <router-link v-if="button1_text=='Sign in'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='Sign in'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='Sign in'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link>
+        <router-link v-if="button1_text=='Sign in'" to="/signIn3" style="text-decoration:none; color:white">{{ button1_text }}</router-link> -->
+    </button>
 </div>   
 </template>
 
@@ -29,6 +41,7 @@ export default {
     letter-spacing: 0.4px;
     border: none;
     border-radius: 2px;
+    text-align: center;
     cursor: pointer;
     &::after{
         border: none;

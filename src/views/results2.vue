@@ -1,8 +1,8 @@
 <template>
     <div>
         <myNav></myNav>
-        <myHeader headerFirstText="Home" headerSecondText="My profile" headerThirdText="Results"></myHeader>
-        <background class="background1"></background>
+        <myResHeader headerFirstText="Home" headerSecondText="My profile" headerThirdText="Results"></myResHeader>
+        <backgroundRes class="background1Res"></backgroundRes>
         <div class="profileWrapper">
             <div class="wrapper">
                 <div class="profileWrapper__column">
@@ -17,7 +17,7 @@
                         <mySelect class="max-w" optionOne="3 Services" optionTwo="USA" optionThree="UK" optionFour="France"></mySelect>
                         <h3 class="profileWrapper__column-text">PERIOD</h3>
                         <myInput1 input1_type="date" class="input-w mg-bottom-2" input1_placeholder="Name" value="2020-03-14" min="2019-01-01" max="2025-12-31" />
-                        <myButton class="myButton1" button1_text="SEARCH"/>
+                        <myButton class="myButtonRes" button1_text="SEARCH"/>
                     </div>
                 </div>
                 
@@ -36,8 +36,8 @@
 
 <script>
 
-import myHeader from '../components/controllers/header/profileHeader.vue'
-import background from '../components/controllers/backgrounds/background_profile.vue'
+import myResHeader from '../components/controllers/header/profileHeader.vue'
+import backgroundRes from '../components/controllers/backgrounds/background_profile.vue'
 import myInput1 from '../components/controllers/input1.vue'
 import mySelect from '../components/controllers/select1.vue'
 import myNav from '../components/controllers/leftNav.vue'
@@ -49,8 +49,8 @@ export default {
     name: 'signIn1',
     components: {
         myInput1,
-        background,
-        myHeader,
+        backgroundRes,
+        myResHeader,
         mySelect,
         myNav,
         myButton,
@@ -69,7 +69,7 @@ body{
     font-size: 16px;
     background-color: #f9fafc;
 }
-.background1{
+.background1Res{
     // margin: 0 20px;
     position: absolute;
     width: 100%;
@@ -112,7 +112,7 @@ body{
     max-width: 16.7em;
     max-height: 2.0em;
 }
-.myButton1{
+.myButtonRes{
     // margin-top: 1em;
     max-width: 17.7em;
 }
@@ -154,7 +154,10 @@ body{
     .rofileWrapper__column{
         width: 100%;
     }
-    .input-w, .myButton1{
+    .input-w{
+        width: 100%;
+    }
+    .myButtonRes{
         width: 100%;
     }
   
@@ -172,11 +175,11 @@ body{
         }
     }
     
-    .input-w, .myButton1{
+    .input-w, .myButtonRes{
         width: 100%;
     }
    
-    .background1{
+    .background1Res{
         width: 90%;
         height: 70%;
     }
@@ -206,6 +209,9 @@ body{
         height: 100%;
         width: 70%;
     }  
+    .myButtonRes{
+        width: 100%;
+    }
 }
 @media (max-width: 1240px){
     .contentWrapper2{
@@ -213,6 +219,9 @@ body{
         height: 100%;
         width: 70%;
     } 
+    .myButtonRes{
+        width: 100%;
+    }
 }
 @media (max-width: 1000px){
     .contentWrapper2{
@@ -239,7 +248,7 @@ body{
     .input-w{
         width: 80%;
     }
-    .myButton1{
+    .myButtonRes{
         width: 88%;
         text-align: center;
     }
@@ -249,14 +258,14 @@ body{
 }
 
 @media (max-height: 850px){
-    .background1{
+    .background1Res{
         max-height: 69vh;
         height: 100%;
     }
     
 }
 @media (max-height: 750px){
-    .background1{
+    .background1Res{
         max-height: 85vh;
         height: 100%;
     }

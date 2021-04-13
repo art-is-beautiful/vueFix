@@ -1,8 +1,8 @@
 <template>
     <div>
         <myNav></myNav>
-        <myHeader headerFirstText="Home" headerSecondText="Admin"></myHeader>
-        <background class="background1"></background>
+        <myAdmHeader headerFirstText="Home" headerSecondText="Admin"></myAdmHeader>
+        <background class="background1Adm"></background>
         <div class="profileWrapper">
             <manage></manage>
         </div> 
@@ -11,7 +11,7 @@
 
 <script>
 
-import myHeader from '../components/controllers/header/profileHeader.vue'
+import myAdmHeader from '../components/controllers/header/profileHeader.vue'
 import background from '../components/controllers/backgrounds/background_profile.vue'
 import myNav from '../components/controllers/leftNav.vue'
 import manage from '../components/component/admManage.vue'
@@ -21,7 +21,7 @@ export default {
     name: 'signIn1',
     components: {
         background,
-        myHeader,
+        myAdmHeader,
         myNav,
         manage,
     }
@@ -37,7 +37,7 @@ body{
     font-size: 16px;
     background-color: #f9fafc;
 }
-.background1{
+.background1Adm{
     // margin: 0 20px;
     position: absolute;
     width: 100%;
@@ -94,7 +94,7 @@ body{
         width: 100%;
     }
    
-    .background1{
+    .background1Adm{
         width: 90%;
         height: 70%;
     }
@@ -167,14 +167,14 @@ body{
 }
 
 @media (max-height: 850px){
-    .background1{
+    .background1Adm{
         max-height: 69vh;
         height: 100%;
     }
     
 }
 @media (max-height: 750px){
-    .background1{
+    .background1Adm{
         max-height: 85vh;
         height: 100%;
     }

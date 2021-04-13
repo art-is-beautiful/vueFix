@@ -16,6 +16,10 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
 
+body{
+    font-size: 16px;
+}
+
 .signTopText{
     font-family: 'Exo 2';
     font-size: 1.75em;

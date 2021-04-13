@@ -5,7 +5,12 @@
                 <img src="../../../../public/img/headerSvg/logo1.svg" alt="logo">
                 <img src="../../../../public/img/headerSvg/logo2.svg" alt="logo">
             </a>
-            <h2 class="myHeader__text">{{headerFirstText}}<a class="myHeader__sign" href="#">{{headerSecondText}}</a></h2>
+            <h2 class="myHeader__text">{{headerFirstText}}
+                <a class="myHeader__sign" href="#"> 
+                <router-link v-if="headerSecondText=='Sign up'" to="/signUp1" style="text-decoration: none">Sign up</router-link> 
+                <router-link v-else to="/signin1" style="text-decoration: none">Sign in</router-link> 
+                </a>
+            </h2>
         </div>
     </div>
 </template>

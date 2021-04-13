@@ -107,6 +107,9 @@ body{
         text-decoration: none;
     }
 }
+.myButton1{
+    max-width: 11.75em;
+}
 
 .mysignTopText{
     width: 100%;
