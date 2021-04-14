@@ -1,12 +1,17 @@
 <template>
-    <input :type="input1_type" class="input1" :placeholder="input1_placeholder"/>
+    <input :type="input1_type" class="input1" v-model="message" v-on:input="$emit('change-my-input', message)" :placeholder="input1_placeholder"/>
 </template>
 
 <script>
 export default {
-    props:{
+    props: {
         input1_placeholder: String,
         input1_type: String
+    },
+    data() {
+        return {
+            message: ''
+        }
     }
 }
 </script>

@@ -5,17 +5,24 @@
         <div class="background1__wrapper">
             <mysignTopText class="mysignTopText" signTopText="Sign up"></mysignTopText>
             <div class="input1Wrapper">
-                <myInput1 input1_type="text" class="input1 input1Wrapper__small" input1_placeholder="Name" />
-                <myInput2 input1_type="text" class="input1 " input1_placeholder="Last name" />   
+                <myInput1 input1_type="text" class="input1 input1Wrapper__small" input1_placeholder="Name" v-model="veefname" v-on:change-my-input="getFname"/>
+                <myInput2 input1_type="text" class="input1 " input1_placeholder="Last name" v-model="veelname" v-on:change-my-input="getLname"/>   
             </div>
-            <myInput1 input1_type="text" class="input1" input1_placeholder="Username" />
-            <myInput2 input1_type="text" class="input1 mb-21px" input1_placeholder="E-mail" />
-            <myButton1 class="myButton1" button1_text="Get started"/>
+            <span v-if="v$.veefname.$error" style="color:red; font-size:12px; width:55%"> <br> {{v$.veefname.$errors[0].$message}}</span>
+            <span v-if="v$.veelname.$error" style="color:red; font-size:12px; width:45%"> <br> {{v$.veelname.$errors[0].$message}}</span>
+            <myInput1 input1_type="text" class="input1" input1_placeholder="Username" v-model="veeusername" v-on:change-my-input="getUsername"/>
+            <span v-if="v$.veeusername.$error" style="color:red; font-size:12px; width:100%">{{v$.veeusername.$errors[0].$message}}</span>
+            <myInput2 input1_type="text" class="input1 mb-21px" input1_placeholder="E-mail" v-model="veeemail" v-on:change-my-input="getEmail"/>
+            <span v-if="v$.veeemail.$error" style="color:red; font-size:12px; width:100%; margin-top: -3em" >{{v$.veeemail.$errors[0].$message}}</span>
+            <myButton1 class="myButton1" button1_text="Get started" @click="getStarted"/>
         </div>
     </div>
 </template>
 
 <script>
+import apiService from '../helpers/api'
+import useValidate from '@vuelidate/core'
+import { required, email, minLength } from '@vuelidate/validators'
 
 import background from '../components/controllers/backgrounds/background1.vue'
 import myButton1 from '../components/controllers/button1.vue'
@@ -33,6 +40,59 @@ export default {
         background,
         mysignTopText,
         myHeader,
+    },
+    data() {
+        return {
+            v$: useValidate(),
+            veefname: '',
+            veelname: '',
+            veeusername: '',
+            veeemail: '',
+            getStartedData: {
+                fname: '',
+                lname: '',
+                username: '',
+                email: '',
+                mypassword: 'mypassword2928'
+            }
+        }
+    },
+    validations() {
+        return {
+            veefname: { required },
+            veelname: { required },
+            veeusername: { required, minLength: minLength(5) },
+            veeemail: { required, email },
+        }
+    },
+    methods: {
+        async getStarted() {
+            this.v$.$validate()
+            if(!this.v$.$error){
+            await apiService.post('/8', this.getStartedData)
+                .then(res => {
+                    console.log('ok');
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log('Created acc was failed ', err.response.data)
+                });
+            } else {
+                console.log('Errrrrooooooor') 
+            }
+        },
+        getFname(data) {
+            this.getStartedData.fname = data
+        },
+        getLname(data) {
+            this.getStartedData.lname = data
+        },
+        getUsername(data) {
+            this.getStartedData.username = data
+        },
+        getEmail(data) {
+            this.getStartedData.email = data
+        }
     }
 }
 </script>

@@ -4,15 +4,16 @@
         <background class="background1"></background>
         <div class="background1__wrapper">
             <mysignTopText class="mysignTopText" signTopText="Sign in"></mysignTopText>
-            <myInput1 input1_type="text" class="input1" input1_placeholder="@email" />
-            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Password" />
+            <myInput1 input1_type="text" class="input1" input1_placeholder="@email" v-on:change-my-input="getEmail" />
+            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Password" v-on:change-my-input="getPassword"/>
             <div class="background1__forgotPass mb-13px"><a href="#" class="background1__forgotPass-text">Forgot password?</a></div>
-            <myButton1 class="myButton1" button1_text="Sign in"/>
+            <myButton1 class="myButton1" button1_text="Sign in" @click="btnSignIn"/>
         </div>
     </div>
 </template>
 
 <script>
+// import axios from 'axios'
 
 import background from '../components/controllers/backgrounds/background1.vue'
 import myButton1 from '../components/controllers/button1.vue'
@@ -30,6 +31,25 @@ export default {
         background,
         mysignTopText,
         myHeader,
+    },
+    data() {
+        return {
+            signInData: {
+                email: '',
+                password: ''
+            }
+        }
+    },
+    methods: {
+        async btnSignIn() {
+            console.log(this.signInData)
+        },
+        getEmail(data) {
+            this.signInData.email = data
+        },
+        getPassword(data) {
+            this.signInData.password = data
+        }
     }
 }
 </script>
