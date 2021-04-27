@@ -7,7 +7,7 @@
             <header class="profileWrapper__header">
                 <a href="#" class="profileWrapper__header-text">PERSONAL INFORMATION </a>
                 <a href="#" class="profileWrapper__header-text">ACCOUNT INFORMATION</a>
-                <hr class="active-line1">
+                <hr class="active-line2">
             </header>
             <div class="profileWrapper__content">
                 <div class="mr-5em">
@@ -135,7 +135,7 @@ body{
     margin-right: 25em;
 }
 
-.active-line1{
+.active-line2{
     position: absolute;
     display: flex;
     top: 3.9em;
@@ -169,7 +169,7 @@ body{
         width: 100%;
         height: 100%;
     }
-    .active-line1{
+    .active-line2{
         width: 100%;
     }
 }
@@ -187,7 +187,7 @@ body{
     .input1Prof{
         width: 80%;
     }
-    .active-line1{
+    .active-line2{
         width: 42.5%;
     }
     .background1Prof{
@@ -205,7 +205,7 @@ body{
             width: 80%;
         }
     }
-    .active-line1{
+    .active-line2{
         width: 42.5%;
     }
 }

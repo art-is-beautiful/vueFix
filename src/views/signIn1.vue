@@ -4,8 +4,8 @@
         <background class="background1"></background>
         <div class="background1__wrapper">
             <mysignTopText class="mysignTopText" signTopText="Sign in"></mysignTopText>
-            <myInput1 input1_type="text" class="input1" input1_placeholder="@email" v-on:change-my-input="getEmail" />
-            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Password" v-on:change-my-input="getPassword"/>
+            <myInput1 input1_type="text" class="input1" input1_placeholder="@email" v-on:change-my-input="getEmail" v-model="veeemail" />
+            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Password" v-on:change-my-input="getPassword" v-model="veepassword"/>
             <div class="background1__forgotPass mb-13px"><a href="#" class="background1__forgotPass-text">Forgot password?</a></div>
             <myButton1 class="myButton1" button1_text="Sign in" @click="btnSignIn"/>
         </div>
@@ -14,6 +14,9 @@
 
 <script>
 // import axios from 'axios'
+import apiService from '../helpers/api'
+import useValidate from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 
 import background from '../components/controllers/backgrounds/background1.vue'
 import myButton1 from '../components/controllers/button1.vue'
@@ -34,21 +37,44 @@ export default {
     },
     data() {
         return {
+            v$: useValidate(),
+            veeemail: '',
+            veepassword: '',
             signInData: {
                 email: '',
-                password: ''
+                mypassword: ''
             }
+        }
+    },
+    validations() {
+        return {
+            veeemail: { required, email },
+            veepassword: { required }
         }
     },
     methods: {
         async btnSignIn() {
+            this.v$.$validate()
+            if(!this.v$.$error){
+            await apiService.post('users/sign-in', this.signInData)
+                .then(res => {
+                    this.$router.push('profile1')
+                    console.log('ok');
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log('Created acc was failed ', err.response.data)
+                });
+            } else {
+                console.log('Errrrrooooooor') 
+            }
             console.log(this.signInData)
         },
         getEmail(data) {
             this.signInData.email = data
         },
         getPassword(data) {
-            this.signInData.password = data
+            this.signInData.mypassword = data
         }
     }
 }

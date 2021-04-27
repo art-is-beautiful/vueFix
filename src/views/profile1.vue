@@ -20,21 +20,25 @@
                         Change photo
                     </button>
                 </div>
-                <div class="profileWrapper__column">
-                    <h3 class="profileWrapper__column-text mg-top-0">First Name </h3>
+                <div class="profileWrapper__column1">
+                    <h3 class="profileWrapper__column1-text mg-top-0">First Name </h3>
                     <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="Name" value="Artem" />
-                    <h3 class="profileWrapper__column-text">Title </h3>
+                    <h3 class="profileWrapper__column1-text">Title </h3>
                     <mySelect class="" optionOne="Mr" optionTwo="Ms" optionThree="None" optionFour="anonim"></mySelect>
-                    <h3 class="profileWrapper__column-text">Country </h3>
+                    <h3 class="profileWrapper__column1-text">Country </h3>
                    <mySelect class="" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France"></mySelect>
                 </div>
                 <div class="">
-                    <h3 class="profileWrapper__column-text mg-top-0">Last Name </h3>
+                    <h3 class="profileWrapper__column1-text mg-top-0">Last Name </h3>
                     <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="Last name" value="Chornyi" />
-                    <h3 class="profileWrapper__column-text">Mobile phone </h3>
+                    <h3 class="profileWrapper__column1-text">Mobile phone </h3>
                     <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="0500500505" />
-                    <h3 class="profileWrapper__column-text">Categoty </h3>
-                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="category" />
+                    <h3 class="profileWrapper__column1-text">Categoty. <i style="font-size: 1em; text-transform: none;">You are a "student".</i> </h3>
+                    <!-- <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="category" /> -->
+                    <div class="categoryChoice">
+                    <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" style="max-width: 10em"></mySelect>
+                    <myButton1 button1_text="Done" @click="btnChooseCategory" style="width: 6em; margin-top: 1.5em "/>
+                    </div>
                 </div>
             </div>
         </div> 
@@ -49,6 +53,7 @@ import background from '../components/controllers/backgrounds/background_profile
 import myInput1 from '../components/controllers/input1.vue'
 import mySelect from '../components/controllers/select1.vue'
 import myNav from '../components/controllers/leftNav.vue'
+import myButton1 from '../components/controllers/button1.vue'
 
 export default {
     name: 'signIn1',
@@ -58,6 +63,7 @@ export default {
         myProfileHeader,
         mySelect,
         myNav,
+        myButton1,
     }
 }
 </script>
@@ -116,7 +122,7 @@ body{
         // flex-wrap: wrap;
         justify-content: space-between;
     }
-    &__column-text{
+    &__column1-text{
         font-family: "Roboto";
         font-weight: 500;
         font-size: 0.75em;
@@ -156,6 +162,12 @@ body{
     z-index: 10;
 }
 
+.categoryChoice{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 @media (min-width: 1200px) {
     .profileWrapper{
         width: 100%;
@@ -180,7 +192,7 @@ body{
         width: 80%;
     }
     .active-line1{
-        width: 42.5%;
+        width: 42.5%; //42.5
     }
     .backgroundProfile{
         width: 90%;
@@ -198,7 +210,7 @@ body{
         }
     }
     .active-line1{
-        width: 42.5%;
+        width: 42.5%; //42.5
     }
 }
 

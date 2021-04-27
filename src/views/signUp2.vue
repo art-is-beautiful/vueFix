@@ -4,11 +4,11 @@
         <background class="background1"></background>
         <div class="background1__wrapper">
             <mysignTopText class="mysignTopText" signTopText="Complete your account"></mysignTopText>
-            <myInput1 input1_type="password" class="input1" input1_placeholder="Password" />
+            <myInput1 input1_type="password" class="input1" input1_placeholder="Password" v-on:change-my-input="getPassword"/>
             <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Confirm password" />
             <div class="checkboxWrapper">
                 <div class="checkboxWrapper__el">
-                    <input type="checkbox" name="agree1" class="checkboxWrapper__el-checkbox">
+                    <input type="checkbox" name="agree1" class="checkboxWrapper__el-checkbox" >
                     <label for="agree1" class="checkboxWrapper__label">I agree to the myFixer.com <a href="#" class="checkboxWrapper__label-link">Terms of Service </a> </label>
                 </div>
                 <div class="checkboxWrapper__el mb-13px">
@@ -21,12 +21,16 @@
                 </form> -->
                 <myRecaptcha></myRecaptcha>
             </div>
-            <myButton1 class="myButton1" button1_text="Done!"/>
+            <myButton1 class="myButton1" button1_text="Done!" @click="getDone"/>
         </div>
     </div>
 </template>
 
 <script>
+import apiService from '../helpers/api'
+import  myData  from '../helpers/signUpData'
+
+// import { getStartedData } from './signUp1'
 
 import background from '../components/controllers/backgrounds/background2.vue'
 import myButton1 from '../components/controllers/button1.vue'
@@ -46,6 +50,33 @@ export default {
         mysignTopText,
         myHeader,
         myRecaptcha,
+    },
+    mounted() {
+
+    },
+    data() {
+        return {
+          getData: {
+              ...myData.data
+          }
+        }
+    },
+    methods: {
+        async getDone(){
+            // console.log('data...:', {...myData.data})
+        await apiService.post('users/sign-up', {...myData.data})
+            .then(res => {
+                this.$router.push('signUp3')
+                console.log('ok');
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log('Created acc was failed ', err.response.data)
+            });
+        },
+        getPassword(data) {
+            myData.data.mypassword = data
+        }
     }
 
 }

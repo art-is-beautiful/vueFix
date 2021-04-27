@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import apiService from '../helpers/api'
+// import apiService from '../helpers/api'
+import  myData  from '../helpers/signUpData'
 import useValidate from '@vuelidate/core'
 import { required, email, minLength } from '@vuelidate/validators'
 
@@ -48,13 +49,13 @@ export default {
             veelname: '',
             veeusername: '',
             veeemail: '',
-            getStartedData: {
-                fname: '',
-                lname: '',
-                username: '',
-                email: '',
-                mypassword: 'mypassword2928'
-            }
+            // getStartedData: {
+            //     fname: '',
+            //     lname: '',
+            //     username: '',
+            //     email: '',
+            //     mypassword: 'lalala'
+            // }
         }
     },
     validations() {
@@ -68,30 +69,37 @@ export default {
     methods: {
         async getStarted() {
             this.v$.$validate()
-            if(!this.v$.$error){
-            await apiService.post('/8', this.getStartedData)
-                .then(res => {
-                    console.log('ok');
-                    console.log(res.data);
-                })
-                .catch(err => {
-                    console.log('Created acc was failed ', err.response.data)
-                });
-            } else {
-                console.log('Errrrrooooooor') 
-            }
+            console.log(this.getStartedData)
+            this.$router.push('signUp2')
+            // if(!this.v$.$error){
+            // await apiService.post('users/sign-up', this.getStartedData)
+            //     .then(res => {
+            //         this.$router.push('signUp2')
+            //         console.log('ok');
+            //         console.log(res.data);
+            //     })
+            //     .catch(err => {
+            //         console.log('Created acc was failed ', err.response.data)
+            //     });
+            // } else {
+            //     console.log('Errrrrooooooor') 
+            // }
         },
         getFname(data) {
-            this.getStartedData.fname = data
+            // this.getStartedData.fname = data
+            myData.data.fname = data
         },
         getLname(data) {
-            this.getStartedData.lname = data
+            // this.getStartedData.lname = data
+            myData.data.lname = data
         },
         getUsername(data) {
-            this.getStartedData.username = data
+            // this.getStartedData.username = data
+            myData.data.username = data
         },
         getEmail(data) {
-            this.getStartedData.email = data
+            // this.getStartedData.email = data
+            myData.data.email = data
         }
     }
 }
