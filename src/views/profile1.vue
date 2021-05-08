@@ -28,19 +28,45 @@
                         <br>
                         <i v-if="myuser.gender == 'None' || myuser.gender == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;"> Please choose your gender .</i> 
                     </h3>
-                    <mySelect class="" optionOne="Mr" optionTwo="Ms" optionThree="None" optionFour="anonim" v-model="gender_event" v-if="myuser.gender == 'None'" style="margin-top: -0.65em">
-                        <!-- <option>mymymy</option> -->
+                    <mySelect2
+                        :options="gender"
+                        @select="optionSelect"
+                        :selectedName="mySelectGender"
+                        v-if="myuser.gender == 'None' || myuser.gender == ''"   
+                    >
+                    </mySelect2>
+                    <mySelect2
+                        :options="gender"
+                        @select="optionSelect"
+                        :selectedName="mySelectGender"
+                        v-else
+                    >
+                    </mySelect2>
+                    <!-- <mySelect class=""  v-model="gender_event" v-if="myuser.gender == 'None'" style="margin-top: -0.65em">
+                        
                     </mySelect>
-                    <mySelect class="" optionOne="Mr" optionTwo="Ms" optionThree="None" optionFour="anonim" @change="getGender($event)" v-else>
-                        <!-- <option v-for="gender in genders" :key="gender">{{gender}}</option> -->
-                    </mySelect>
+                    <mySelect class=""  optionFour="anonim" @change="getGender($event)" v-else>
+                        
+                    </mySelect>  -->
                     <h3 class="profileWrapper__column1-text">Country . 
                         <i style="font-size: 1em; text-transform: none;">You are from {{myuser.country}} .</i> 
                         <br>
                         <i v-if="myuser.country == 'None' || myuser.country == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;"> Please select your country .</i> 
                     </h3>
-                   <mySelect class="" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France" @change="getCountry($event)" v-if="myuser.country == 'None' || myuser.country == ''" style="margin-top: -0.65em"></mySelect>
-                   <mySelect class="" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France" @change="getCountry($event)" v-else></mySelect>
+                    <mySelect2
+                        :options="country"
+                        @select="selectCountry"
+                        :selectedName="mySelectCountry" 
+                        v-if="myuser.country == 'None' || myuser.country == ''" 
+                    ></mySelect2>
+                    <mySelect2
+                        :options="country"
+                        @select="selectCountry"
+                        :selectedName="mySelectCountry" 
+                        v-else
+                    ></mySelect2>
+                   <!-- <mySelect class=""  @change="getCountry($event)" v-if="myuser.country == 'None' || myuser.country == ''" style="margin-top: -0.65em"></mySelect>
+                   <mySelect class=""  @change="getCountry($event)" v-else></mySelect> -->
                 </div>
                 <div class="">
                     <h3 class="profileWrapper__column1-text mg-top-0">Last Name </h3>
@@ -56,13 +82,27 @@
                         <br>
                         <i v-if="myuser.mycategory == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;">Please chose your role.</i> 
                     </h3>
-                    <!-- <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="category" /> -->
                     <div class="categoryChoice">
-                    <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-if="myuser.mycategory == ''" @change="getCategory($event)" style="max-width: 10em; margin-top: -0.65em"></mySelect> 
-                    <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-else @change="getCategory($event)" style="max-width: 10em"></mySelect>
-                    <myButton1 button1_text="Done" @click="btnChooseCategory" v-if="myuser.mycategory == ''" style="width: 6em; margin-top: 1.5em; margin-top: 0.85em "/>
-                    <myButton1 button1_text="Done" @click="btnChooseCategory" v-else style="width: 6em; margin-top: 1.5em; "/>
+                        <mySelect2
+                        :options="role"
+                        @select="selectRole"
+                        :selectedName="mySelectRole" 
+                        v-if="myuser.mycategory == 'None' || myuser.mycategory == ''" 
+                        style="max-width: 10em;"
+                    ></mySelect2>
+                    <mySelect2
+                        :options="role"
+                        @select="selectRole"
+                        :selectedName="mySelectRole" 
+                        v-else
+                        style="max-width: 10em;"
+                    ></mySelect2>
+                        <!-- <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-if="myuser.mycategory == ''" @change="getCategory($event)" style="max-width: 10em; margin-top: -0.65em"></mySelect> 
+                        <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-else @change="getCategory($event)" style="max-width: 10em"></mySelect> -->
+                        <myButton1 button1_text="Done" @click="btnChooseCategory" v-if="myuser.mycategory == ''" style="width: 6em; margin-top: 1.5em; margin-top: 0.85em "/>
+                        <myButton1 button1_text="Done" @click="btnChooseCategory" v-else style="width: 6em; margin-top: 1.5em; "/>
                     </div>
+                 
                 </div>
             </div>
         </div> 
@@ -75,7 +115,8 @@
 import myProfileHeader from '../components/controllers/header/profileHeader.vue'
 import background from '../components/controllers/backgrounds/background_profile.vue'
 import myInput1 from '../components/controllers/input1.vue'
-import mySelect from '../components/controllers/select1.vue'
+// import mySelect from '../components/controllers/select1.vue'
+import mySelect2 from '../components/controllers/select2.vue'
 import myNav from '../components/controllers/leftNav.vue'
 import myButton1 from '../components/controllers/button1.vue'
 
@@ -89,7 +130,8 @@ export default {
         myInput1,
         background,
         myProfileHeader,
-        mySelect,
+        // mySelect,
+        mySelect2,
         myNav,
         myButton1,
     },
@@ -98,9 +140,25 @@ export default {
     },
     data() {
       return {
-        // users: [{id: 1, fname: '', lname: '', username: '', email: ''}],
-        gender_event: '',
-        genders: ['Mr', 'Ms', 'Binary'],
+        gender: [
+            {name: "Mr", value: 1},
+            {name: "Mrs", value: 2},
+            {name: "Miss", value: 3},
+            {name: "Ms", value: 4},
+        ],
+        country: [
+            {name: "Ukraine", value: 1},
+            {name: "USA", value: 2},
+            {name: "UK", value: 3},
+            {name: "France", value: 4},
+        ],
+        role: [
+            {name: "Teacher", value: 1},
+            {name: "Student", value: 2},
+        ],
+        mySelectGender: 'Select your gender',
+        mySelectCountry: 'Select your country',
+        mySelectRole: 'Select your role',
         myuser: {
             id: '',
             fname: '',
@@ -157,22 +215,34 @@ export default {
         async btnChooseCategory(){
             console.log('data...:', {...this.nameUpdate})
             console.log('dataCategory...:', {...this.categoryUpdate})
-        // await apiService.put('users/update', {...this.nameUpdate}) 
-        //     .then(res => {
-        //         console.log('ok');
-        //         console.log(res.data);
-        //     })
-        //     .catch(err => {
-        //         console.log('Updated names was failed ', err.response.data)
-        //     });
-        // await apiService.put('category/update', {...this.categoryUpdate}) 
-        //     .then(res => {
-        //         console.log('ok');
-        //         console.log(res.data);
-        //     })
-        //     .catch(err => {
-        //         console.log('Updated category was failed ', err.response.data)
-        //     });
+        await apiService.put('users/update', {...this.nameUpdate}) 
+            .then(res => {
+                console.log('ok');
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log('Updated names was failed ', err.response.data)
+            });
+        await apiService.put('category/update', {...this.categoryUpdate}) 
+            .then(res => {
+                console.log('ok');
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log('Updated category was failed ', err.response.data)
+            });
+        },
+        optionSelect(option) {
+            this.mySelectGender = option.name;
+            this.categoryUpdate.gender = option.name
+        },
+        selectCountry(option) {
+            this.mySelectCountry = option.name;
+            this.categoryUpdate.country = option.name;
+        },
+        selectRole(option) {
+            this.mySelectRole = option.name;
+            this.categoryUpdate.mycategory = option.name;
         },
         getFirstName(data) {
             this.nameUpdate.fname = data;
@@ -180,18 +250,19 @@ export default {
         getLastName(data) {
             this.nameUpdate.lname = data;
         },
-        getGender:function(gender_event) {
-            this.categoryUpdate.gender = gender_event;
-        },
-        getCountry:function(event) {
-            this.categoryUpdate.country = event;
-        },
+        // getGender:function(gender_event) {
+        //     this.categoryUpdate.gender = gender_event;
+        // },
+        // getCountry:function(event) {
+        //     this.categoryUpdate.country = event;
+        // },
         getMobPhone(data) {
             this.categoryUpdate.phone_number = data;
         },
-        getCategory:function(event) {
-            this.categoryUpdate.mycategory = event;
-        }
+        // getCategory:function(event) {
+        //     this.categoryUpdate.mycategory = event;
+        // },
+        
 
     }
 
