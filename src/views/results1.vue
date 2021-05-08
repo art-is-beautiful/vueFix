@@ -12,9 +12,9 @@
                         <h3 class="profileWrapper__column-text">SEARCH</h3>
                         <myInput1 input1_type="text" class="input-w" input1_placeholder="Name" />
                         <h3 class="profileWrapper__column-text">CATEGORY </h3>
-                        <mySelect class="max-w" optionOne="Category 1" optionTwo="Category 2" optionThree="None" optionFour="anonim"></mySelect>
-                        <h3 class="profileWrapper__column-text">SERVICE</h3>
-                        <mySelect class="max-w" optionOne="3 Services" optionTwo="USA" optionThree="UK" optionFour="France"></mySelect>
+                        <mySelect class="max-w" optionOne="Teacher" optionTwo="Student" optionThree="None" optionFour="anonim"></mySelect>
+                        <h3 class="profileWrapper__column-text">SERVICES</h3>
+                        <mySelect class="max-w" optionOne="Math" optionTwo="English" optionThree="UK" optionFour="France"></mySelect>
                         <h3 class="profileWrapper__column-text">PERIOD</h3>
                         <myInput1 input1_type="date" class="input-w mg-bottom-2" input1_placeholder="Name" value="2020-03-14" min="2019-01-01" max="2025-12-31" />
                         <myButton class="myButton1 myButton1Res" button1_text="SEARCH"/>

@@ -11,7 +11,7 @@
                  <!-- <hr class="active-hr1"> -->
                 <a href="#" class="profileWrapper__header-text">ACCOUNT INFORMATION</a>
             </header>
-            <div class="profileWrapper__content">
+            <div class="profileWrapper__content" >
                 <div class="profileWrapper__avatar">
                     <img src="../../public/img/avatars/avatar1.svg" alt="avatar">
                     <br>
@@ -22,22 +22,46 @@
                 </div>
                 <div class="profileWrapper__column1">
                     <h3 class="profileWrapper__column1-text mg-top-0">First Name </h3>
-                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="Name" value="Artem" />
-                    <h3 class="profileWrapper__column1-text">Title </h3>
-                    <mySelect class="" optionOne="Mr" optionTwo="Ms" optionThree="None" optionFour="anonim"></mySelect>
-                    <h3 class="profileWrapper__column1-text">Country </h3>
-                   <mySelect class="" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France"></mySelect>
+                    <myInput1 input1_type="text" class="input1 input1Prof" :input1_placeholder='myuser.fname'  v-on:change-my-input="getFirstName"  />
+                    <h3 class="profileWrapper__column1-text">Gender . 
+                        <i style="font-size: 1em; text-transform: none;">You are a {{myuser.gender}} .</i> 
+                        <br>
+                        <i v-if="myuser.gender == 'None' || myuser.gender == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;"> Please choose your gender .</i> 
+                    </h3>
+                    <mySelect class="" optionOne="Mr" optionTwo="Ms" optionThree="None" optionFour="anonim" v-model="gender_event" v-if="myuser.gender == 'None'" style="margin-top: -0.65em">
+                        <!-- <option>mymymy</option> -->
+                    </mySelect>
+                    <mySelect class="" optionOne="Mr" optionTwo="Ms" optionThree="None" optionFour="anonim" @change="getGender($event)" v-else>
+                        <!-- <option v-for="gender in genders" :key="gender">{{gender}}</option> -->
+                    </mySelect>
+                    <h3 class="profileWrapper__column1-text">Country . 
+                        <i style="font-size: 1em; text-transform: none;">You are from {{myuser.country}} .</i> 
+                        <br>
+                        <i v-if="myuser.country == 'None' || myuser.country == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;"> Please select your country .</i> 
+                    </h3>
+                   <mySelect class="" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France" @change="getCountry($event)" v-if="myuser.country == 'None' || myuser.country == ''" style="margin-top: -0.65em"></mySelect>
+                   <mySelect class="" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France" @change="getCountry($event)" v-else></mySelect>
                 </div>
                 <div class="">
                     <h3 class="profileWrapper__column1-text mg-top-0">Last Name </h3>
-                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="Last name" value="Chornyi" />
-                    <h3 class="profileWrapper__column1-text">Mobile phone </h3>
-                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="0500500505" />
-                    <h3 class="profileWrapper__column1-text">Categoty. <i style="font-size: 1em; text-transform: none;">You are a "student".</i> </h3>
+                    <myInput1 input1_type="text" class="input1 input1Prof" :input1_placeholder="myuser.lname" v-on:change-my-input="getLastName" />
+                    <h3 class="profileWrapper__column1-text">Mobile phone 
+                        <br>
+                        <i v-if="myuser.phone_number == 'None' || myuser.phone_number == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;"> Please write your number .</i> 
+                    </h3>
+                    <myInput1 input1_type="text" class="input1 input1Prof" :input1_placeholder="myuser.phone_number" v-if="myuser.phone_number == ''" v-on:change-my-input="getMobPhone"/>
+                    <myInput1 input1_type="text" class="input1 input1Prof" :input1_placeholder="myuser.phone_number" v-else v-on:change-my-input="getMobPhone"/>
+                    <h3 class="profileWrapper__column1-text">Category. 
+                        <i style="font-size: 1em; text-transform: none;">You are a {{myuser.mycategory}}.</i> 
+                        <br>
+                        <i v-if="myuser.mycategory == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;">Please chose your role.</i> 
+                    </h3>
                     <!-- <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="category" /> -->
                     <div class="categoryChoice">
-                    <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" style="max-width: 10em"></mySelect>
-                    <myButton1 button1_text="Done" @click="btnChooseCategory" style="width: 6em; margin-top: 1.5em "/>
+                    <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-if="myuser.mycategory == ''" @change="getCategory($event)" style="max-width: 10em; margin-top: -0.65em"></mySelect> 
+                    <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-else @change="getCategory($event)" style="max-width: 10em"></mySelect>
+                    <myButton1 button1_text="Done" @click="btnChooseCategory" v-if="myuser.mycategory == ''" style="width: 6em; margin-top: 1.5em; margin-top: 0.85em "/>
+                    <myButton1 button1_text="Done" @click="btnChooseCategory" v-else style="width: 6em; margin-top: 1.5em; "/>
                     </div>
                 </div>
             </div>
@@ -55,6 +79,10 @@ import mySelect from '../components/controllers/select1.vue'
 import myNav from '../components/controllers/leftNav.vue'
 import myButton1 from '../components/controllers/button1.vue'
 
+import apiService from '../helpers/api';
+// import api from '../helpers/api'
+
+
 export default {
     name: 'signIn1',
     components: {
@@ -64,7 +92,109 @@ export default {
         mySelect,
         myNav,
         myButton1,
+    },
+    props: {
+        
+    },
+    data() {
+      return {
+        // users: [{id: 1, fname: '', lname: '', username: '', email: ''}],
+        gender_event: '',
+        genders: ['Mr', 'Ms', 'Binary'],
+        myuser: {
+            id: '',
+            fname: '',
+            lname: '',
+            username: '',
+            email: '',
+            mycategory: '',
+            phone_number: '',
+            gender: '',
+            country: '',
+        },
+        nameUpdate: {
+            id: '',
+            fname: '',
+            lname: '',
+        },
+        categoryUpdate: {
+            mycategory: '',
+            users_id: '',
+            phone_number: '',
+            gender: '',
+            country: '',
+        }
+      }
+    },
+    beforeCreate() {
+        apiService.get("users/profile")
+            .then((res) => {
+              this.myuser.id = res.data.user.id;
+              this.nameUpdate.id = res.data.user.id;
+              this.categoryUpdate.users_id = res.data.user.id;
+              this.myuser.fname = res.data.user.fname;
+              this.myuser.lname = res.data.user.lname;
+              this.myuser.username = res.data.user.username;
+              this.myuser.email = res.data.user.email;
+            //   console.log('my id: ' + this.myuser.id)
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        setTimeout(()=>{
+            apiService.get(`category/get-one/${this.myuser.id}`)
+            .then((res) => {
+                console.log(res.data)
+                this.myuser.mycategory = res.data.mycategory
+                this.myuser.phone_number = res.data.phone_number
+                this.myuser.gender = res.data.gender
+                this.myuser.country = res.data.country
+            })
+        }, 1000)
+        
+    },
+    methods: {
+        async btnChooseCategory(){
+            console.log('data...:', {...this.nameUpdate})
+            console.log('dataCategory...:', {...this.categoryUpdate})
+        // await apiService.put('users/update', {...this.nameUpdate}) 
+        //     .then(res => {
+        //         console.log('ok');
+        //         console.log(res.data);
+        //     })
+        //     .catch(err => {
+        //         console.log('Updated names was failed ', err.response.data)
+        //     });
+        // await apiService.put('category/update', {...this.categoryUpdate}) 
+        //     .then(res => {
+        //         console.log('ok');
+        //         console.log(res.data);
+        //     })
+        //     .catch(err => {
+        //         console.log('Updated category was failed ', err.response.data)
+        //     });
+        },
+        getFirstName(data) {
+            this.nameUpdate.fname = data;
+        },
+        getLastName(data) {
+            this.nameUpdate.lname = data;
+        },
+        getGender:function(gender_event) {
+            this.categoryUpdate.gender = gender_event;
+        },
+        getCountry:function(event) {
+            this.categoryUpdate.country = event;
+        },
+        getMobPhone(data) {
+            this.categoryUpdate.phone_number = data;
+        },
+        getCategory:function(event) {
+            this.categoryUpdate.mycategory = event;
+        }
+
     }
+
 }
 </script>
 

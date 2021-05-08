@@ -15,6 +15,7 @@
 <script>
 // import axios from 'axios'
 import apiService from '../helpers/api'
+import mySignData from '../helpers/signInData'
 import useValidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 
@@ -56,11 +57,16 @@ export default {
         async btnSignIn() {
             this.v$.$validate()
             if(!this.v$.$error){
-            await apiService.post('users/sign-in', this.signInData)
+            await apiService.post("users/sign-in", {...mySignData.data})
                 .then(res => {
                     this.$router.push('profile1')
                     console.log('ok');
                     console.log(res.data);
+                    mySignData.getToken.accessToken = res.data.tokens.accessToken;
+                    // let cookie = `mytoken = ${JSON.stringify(mySignData.checkJWT())}`
+                    // document.cookie = cookie;
+                    localStorage.setItem('mytoken', mySignData.checkJWT());
+                    localStorage.setItem('myemail', mySignData.checkEmail());
                 })
                 .catch(err => {
                     console.log('Created acc was failed ', err.response.data)
@@ -68,13 +74,15 @@ export default {
             } else {
                 console.log('Errrrrooooooor') 
             }
-            console.log(this.signInData)
         },
         getEmail(data) {
-            this.signInData.email = data
+            // this.signInData.email = data
+            mySignData.data.email = data;
+            mySignData.getEmail.email = data;
         },
         getPassword(data) {
-            this.signInData.mypassword = data
+            // this.signInData.mypassword = data
+            mySignData.data.mypassword = data;
         }
     }
 }

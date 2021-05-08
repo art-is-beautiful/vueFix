@@ -1,10 +1,10 @@
 <template>
     <div class="dropdown">
-        <select name="choice-header" id="dropdownId" class="dropdown__select" onchange="javascript:handleSelect(this)">
-            <option value="account" selected>{{optionOne}}</option>
+        <select name="choice-header" id="dropdownId" :v-model="option" class="dropdown__select"  onchange="javascript:handleSelect(this)">
+            <option value="one">{{optionOne}}</option>
             <option value="settings">{{optionTwo}}</option>
             <option value="about">{{optionThree}}</option>
-            <option value="contact">{{optionFour}}</option>
+            <option value="contact">{{optionFour}}</option> 
         </select>
     </div>
 </template>
@@ -12,6 +12,8 @@
 <script>
 export default {
     props:{
+        option: String,
+        options: Array,
         optionOne: String,
         optionTwo: String,
         optionThree: String,

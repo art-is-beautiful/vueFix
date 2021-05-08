@@ -21,7 +21,7 @@
 
 <script>
 // import apiService from '../helpers/api'
-import  myData  from '../helpers/signUpData'
+import myData from '../helpers/signUpData'
 import useValidate from '@vuelidate/core'
 import { required, email, minLength } from '@vuelidate/validators'
 

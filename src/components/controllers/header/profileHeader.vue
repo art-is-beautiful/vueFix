@@ -11,7 +11,7 @@
             </div>
             <div class="myProfHeader__dropdown">
                 <select name="choice-header" id="choice-header" class="myProfHeader__dropdown-select" onchange="javascript:handleSelect(this)">
-                    <option value="account" selected>Artem Chornyi</option>
+                    <option value="account" selected>{{myuser.fname}} {{myuser.lname}}</option>
                     <option value="settings">Settings</option>
                     <option value="about">About</option>
                     <option value="contact">Contact</option>
@@ -22,6 +22,9 @@
 </template>
 
 <script>
+import apiService from '../../../helpers/api';
+
+
 export default {
     name: "signTopText",
     props: {
@@ -29,11 +32,30 @@ export default {
         headerSecondText: String,
         headerThirdText: String,
     },
+    data(){
+        return {
+            myuser: {
+                fname: '',
+                lname: '',
+            }
+        }
+    },
     methods: {
         handleSelect(elm){
            window.location = elm.value+".vue";
         }
-    }
+    },
+    beforeCreate() {
+        apiService.get("users/profile")
+            .then((res) => {
+              console.log(res.data.user)
+              this.myuser.fname = res.data.user.fname
+              this.myuser.lname = res.data.user.lname
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+    },
 }
 </script>
 

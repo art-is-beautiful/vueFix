@@ -1,7 +1,7 @@
 <template>
   <GMapMap
       :center="center"
-      :zoom="10"
+      :zoom="12"
       map-type-id="terrain"
       class="gmap"
   >
@@ -17,18 +17,18 @@ export default {
   name: 'App',
   data() {
     return {
-      center: {lat: 40.75876747510214, lng: -73.98441503722928 },
+      center: {lat: 49.835458, lng: 24.015115 }, //, 
       markers: [
         {
           id: 'dfsldjl3r',
           position: {
-            lat: 40.689746640889965, lng: -73.99106342867998 
+            lat: 49.835200, lng: 24.012144  //, 
           },
         },
         {
           id: 'dkdjskdj',
           position: {
-            lat: 40.75876747510214, lng: -73.98441503722928 
+            lat: 49.837205, lng: 24.042921  //, 
           },
         }
       ]

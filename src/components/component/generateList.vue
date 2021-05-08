@@ -1,74 +1,11 @@
 <template>
     <div class="cardWrapper">
-        <div class="card"> 
+        <div class="card" v-for="user in users" :key="user.id"> 
             <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
             <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
-            </section>
-        </div>
-        <div class="card"> 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
-            <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
-            </section>
-        </div>
-        <div class="card"> 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
-            <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
-            </section>
-        </div>
-         <div class="card"> 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
-            <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
-            </section>
-        </div>
-         <div class="card"> 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
-            <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
-            </section>
-        </div>
-         <div class="card"> 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
-            <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
-            </section>
-        </div>
-         <div class="card"> 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
-            <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
-            </section>
-        </div>
-         <div class="card"> 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
-            <section class="card__info"> 
-              <h3 class="card__nickname">Richard Thompson </h3>
-              <p class="card__text">Vancuver Canada </p>
-              <p class="card__text-main">Stack:  <span class="card__text">Phyton, Jango</span></p>
+              <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
+              <p class="card__text">{{user.email}} </p>
+              <p class="card__text-main">Stack:  <span class="card__text"> {{user.mycategory || "None"}} </span></p>
               <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
             </section>
         </div>
@@ -76,10 +13,26 @@
 </template>
 
 <script>
+import apiService from '../../helpers/api';
 export default {
     name:"generateList",
     props: {
         
+    },
+    data() {
+      return {
+        users: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: ''}],
+      }
+    },
+    beforeCreate() {
+      apiService.get("users/users-list-inner")
+        .then((res) => {
+          console.log(res)
+          this.users = res.data.users;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
 }
 </script>

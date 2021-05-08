@@ -10,16 +10,16 @@
         <header class="table__main bg-c-table"> 
           <p class="table__header-text">First Name </p>
           <p class="table__header-text">Last Name </p>
-          <p class="table__header-text">Country </p>
+          <p class="table__header-text">Username </p>
           <p class="table__header-text">Status </p>
           <p class="table__header-text">Level </p>
           <p class="table__header-text">E-mail </p>
         </header>
         <div class="table__content-wrapper">
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
+          <div class="table__main" v-for="user in users" :key="user.id"> 
+            <p class="table__content-text">{{user.fname}} </p>
+            <p class="table__content-text">{{user.lname}} </p>
+            <p class="table__content-text">{{user.username}} </p>
             <p class="table__content-text">Completed</p>
             <div class="wrapperAdmin-select"> 
               <select class="table__content-text table__content-select" name="status">
@@ -28,133 +28,7 @@
                 <option value="gold" selected="selected">Gold</option>
               </select>
             </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
-          </div>
-          <div class="table__main"> 
-            <p class="table__content-text">Artem </p>
-            <p class="table__content-text">Chornyi </p>
-            <p class="table__content-text">Ukraine </p>
-            <p class="table__content-text">Completed</p>
-            <div class="wrapperAdmin-select"> 
-              <select class="table__content-text table__content-select" name="status">
-                <option value="trash">Trash </option>
-                <option value="silver">Silver </option>
-                <option value="gold" selected="selected">Gold</option>
-              </select>
-            </div>
-            <p class="table__content-text text-trans-lower">artem.chorniy@gmail.com</p>
+            <p class="table__content-text text-trans-lower">{{user.email}}</p>
           </div>
         </div>
       </section>
@@ -162,9 +36,23 @@
 </template>
 
 <script>
+import apiService from '../../helpers/api';
 export default {
     name: "admManage",
-
+    data() {
+      return {
+        users: [{id: 1, fname: '', lname: '', username: '', email: ''}]
+      }
+    },
+    beforeCreate() {
+      apiService.get("users/users-list")
+        .then((res) => {
+          this.users = res.data.users;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
 }
 </script>
 
