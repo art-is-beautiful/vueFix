@@ -5,18 +5,18 @@
         <background class="background1Prof"></background>
         <div class="profileWrapper">
             <header class="profileWrapper__header">
-                <a href="#" class="profileWrapper__header-text">PERSONAL INFORMATION </a>
+                <a href="/profile1" class="profileWrapper__header-text">PERSONAL INFORMATION </a>
                 <a href="#" class="profileWrapper__header-text">ACCOUNT INFORMATION</a>
                 <hr class="active-line2">
             </header>
             <div class="profileWrapper__content">
                 <div class="mr-5em">
                     <h3 class="profileWrapper__column-text mg-top-0">User Name </h3>
-                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="User name" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" :value="emailupdate.username" />
                 </div>
                 <div class="mr-25em">
                     <h3 class="profileWrapper__column-text mg-top-0">E-MAIL </h3>
-                    <myInput1 input1_type="text" class="input1 input1Prof" input1_placeholder="E-mail" />
+                    <myInput1 input1_type="text" class="input1 input1Prof" :value="emailupdate.email" />
                 </div>
             </div>
             <a href="#" class="changePass">
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import apiService from '../helpers/api';
 
 import myProfileHeader from '../components/controllers/header/profileHeader.vue'
 import background from '../components/controllers/backgrounds/background_profile.vue'
@@ -42,6 +43,27 @@ export default {
         background,
         myProfileHeader,
         myNav,
+    },
+    data() {
+        return {
+            emailupdate: {
+               id: '',
+               username: '',
+               email: '',
+            } 
+        }
+    },
+    beforeCreate() {
+        apiService.get("users/profile")
+            .then((res) => {
+              this.emailupdate.id = res.data.user.id;   
+              this.emailupdate.username = res.data.user.username;
+              this.emailupdate.email = res.data.user.email;
+            //   console.log('my id: ' + this.myuser.id)
+            })
+            .catch((err) => {
+              console.log(err);
+            })
     }
 }
 </script>

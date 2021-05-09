@@ -1,7 +1,7 @@
 <template>
     <div class="headerBgWrapper">
         <div class="headerBgWrapper__first">
-            <a href="#" class="show__map-text">SHOW MAP</a>
+            <a href="results2" class="show__map-text">SHOW MAP</a>
             <img src="../../../../public/img/Vector__results_showmap.svg" alt="ico">
         </div>
         <div class="headerBgWrapper__second"> 

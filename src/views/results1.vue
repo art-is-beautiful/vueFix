@@ -8,22 +8,43 @@
                 <div class="profileWrapper__column">
                     <div class="profileWrapper__m-w">
                         <h3 class="profileWrapper__column-text">COUNTRY</h3>
-                        <mySelect class="max-w" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France"></mySelect>
+                        <mySelect2
+                            :options="country"
+                            @select="selectCountry"
+                            :selectedName="mySelectCountry" 
+                            class="max-w"
+                        ></mySelect2>
+                        <!-- <mySelect class="max-w" optionOne="Ukraine" optionTwo="USA" optionThree="UK" optionFour="France"></mySelect> -->
                         <h3 class="profileWrapper__column-text">SEARCH</h3>
                         <myInput1 input1_type="text" class="input-w" input1_placeholder="Name" />
                         <h3 class="profileWrapper__column-text">CATEGORY </h3>
-                        <mySelect class="max-w" optionOne="Teacher" optionTwo="Student" optionThree="None" optionFour="anonim"></mySelect>
+                        <mySelect2
+                            :options="role"
+                            @select="selectRole"
+                            :selectedName="mySelectRole" 
+                            class="max-w"
+                        ></mySelect2>
+                        <!-- <mySelect class="max-w" optionOne="Teacher" optionTwo="Student" optionThree="None" optionFour="anonim"></mySelect> -->
                         <h3 class="profileWrapper__column-text">SERVICES</h3>
-                        <mySelect class="max-w" optionOne="Math" optionTwo="English" optionThree="UK" optionFour="France"></mySelect>
+                        <mySelect2
+                            :options="services"
+                            @select="selectService"
+                            :selectedName="mySelectService" 
+                            class="max-w"
+                        ></mySelect2>
+                        <!-- <mySelect class="max-w" optionOne="Math" optionTwo="English" optionThree="UK" optionFour="France"></mySelect> -->
                         <h3 class="profileWrapper__column-text">PERIOD</h3>
                         <myInput1 input1_type="date" class="input-w mg-bottom-2" input1_placeholder="Name" value="2020-03-14" min="2019-01-01" max="2025-12-31" />
-                        <myButton class="myButton1 myButton1Res" button1_text="SEARCH"/>
+                        <myButton @click="btnSearch" class="myButton1 myButton1Res" button1_text="SEARCH"/>
                     </div>
                 </div>
                 
             <div class="contentWrapper1">
                 <formHeader></formHeader>
-                <generateList></generateList>
+                <generateList
+                    :mycountry="mySelectCountry"
+                    :mycategory="mySelectRole"
+                ></generateList>
 
             </div>
 
@@ -35,11 +56,13 @@
 </template>
 
 <script>
+import apiService from '../helpers/api';
 
 import myResHeader from '../components/controllers/header/profileHeader.vue'
 import backgroundRes from '../components/controllers/backgrounds/background_profile.vue'
 import myInput1 from '../components/controllers/input1.vue'
-import mySelect from '../components/controllers/select1.vue'
+// import mySelect from '../components/controllers/select1.vue'
+import mySelect2 from '../components/controllers/select2.vue'
 import myNav from '../components/controllers/leftNav.vue'
 import myButton from '../components/controllers/button1.vue'
 import formHeader from '../components/controllers/header/resultsBgHeader.vue'
@@ -51,11 +74,54 @@ export default {
         myInput1,
         backgroundRes,
         myResHeader,
-        mySelect,
+        // mySelect,
+        mySelect2,
         myNav,
         myButton,
         formHeader,
         generateList,
+    },
+    data() {
+        return {
+            country: [
+                {name: "Ukraine", value: 1},
+                {name: "USA", value: 2},
+                {name: "UK", value: 3},
+                {name: "France", value: 4},
+                {name: "None", value: 5},
+            ],
+            role: [
+                {name: "Teacher", value: 1},
+                {name: "Student", value: 2},
+            ],
+            services: [
+                {name: "Math", value: 1},
+                {name: "English", value: 2},
+                {name: "Biology", value: 3},
+            ],
+            mySelectCountry: 'Select country',
+            mySelectRole: 'Select your role',
+            mySelectService: 'Select service',
+            mySelectName: '',
+        }
+    },
+    methods: {
+        async btnSearch() {
+            if(this.mySelectCountry != ''){
+                await apiService.get()
+            }
+        },
+        selectCountry(option) {
+            this.mySelectCountry = option.name;
+            // this.categoryUpdate.country = option.name;
+        },
+        selectRole(option) {
+            this.mySelectRole = option.name;
+            // this.categoryUpdate.mycategory = option.name;
+        },
+        selectService(option) {
+            this.mySelectService = option.name;
+        }
     }
 }
 </script>

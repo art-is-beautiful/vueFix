@@ -1,28 +1,71 @@
 <template>
-    <div class="cardWrapper">
-        <div class="card" v-for="user in users" :key="user.id"> 
+    <div class="cardWrapper" v-if="mycountry == ''|| mycountry =='Select country'" >
+        <div class="card" v-for="user in users" :key="user.id" > 
             <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
             <section class="card__info"> 
               <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
               <p class="card__text">{{user.email}} </p>
-              <p class="card__text-main">Stack:  <span class="card__text"> {{user.mycategory || "None"}} </span></p>
-              <p class="card__text-main">Base Daily Rate:  <span class="card__text">1300 USD</span></p>
+              <p class="card__text-main">Role:  <span class="card__text"> {{user.mycategory }} </span></p>
+              <p class="card__text-main">Country:  <span class="card__text">{{user.country}}</span></p>
             </section>
         </div>
     </div>   
+    <div class="cardWrapper" v-else >
+        <div class="card" v-for="user in users2" :key="user.id" > 
+            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
+            <section class="card__info"> 
+              <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
+              <p class="card__text">{{user.email}} </p>
+              <p class="card__text-main">Role:  <span class="card__text"> {{user.mycategory}} </span></p>
+              <p class="card__text-main">Country:  <span class="card__text">{{user.country}}</span></p>
+            </section>
+        </div>
+    </div>  
+    <!-- <div class="cardWrapper" v-else-if="mycategory != '' && mycategory != 'Select your role'" >
+        <div class="card" v-for="user in users3" :key="user.id" > 
+            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
+            <section class="card__info"> 
+              <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
+              <p class="card__text">{{user.email}} </p>
+              <p class="card__text-main">Role:  <span class="card__text"> {{user.mycategory}} </span></p>
+              <p class="card__text-main">Country:  <span class="card__text">{{user.country}}</span></p>
+            </section>
+        </div>
+    </div>  -->
+    <myButton @click="btnSearch" class="myButtonSearch" button1_text="SEARCH"></myButton>
 </template>
 
 <script>
 import apiService from '../../helpers/api';
+
+import myButton from '../controllers/button1'
+
 export default {
     name:"generateList",
     props: {
-        
+        mycountry: {
+            type: String,
+            default: '',
+        },
+        myname: {
+            type: String,
+            default: '',
+        },
+        mycategory: {
+            type: String,
+            default: '',
+        }
+    },
+    components: {
+        myButton,
     },
     data() {
       return {
-        users: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: ''}],
+        users: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: ''}],
+        users2: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: this.mycountry}],
+        users3: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: this.mycategory, country: ''}],
       }
+      
     },
     beforeCreate() {
       apiService.get("users/users-list-inner")
@@ -33,7 +76,35 @@ export default {
         .catch((err) => {
           console.log(err);
         })
-    }
+    },
+    methods: {
+        //apiService.get() - select country by props
+        async btnSearch() {   
+            // if(this.mycountry != '' || this.mycountry != 'Select country'){
+                // console.log('myCountry: ' + this.mycountry)
+                await apiService.get(`users/users-country/${this.mycountry}`)
+                    .then((res) => {
+                      console.log(res.data.users)
+                      this.users2 = res.data.users;
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    })
+            // }
+            // if(this.mycategory != '' || this.mycategory != 'Select your category'){
+            //     console.log(this.mycategory)
+            //     await apiService.get(`users/users-role/${this.mycategory}`)
+            //         .then((res) => {
+            //           console.log(res.data.users)
+            //           this.users3 = res.data.users;
+            //         })
+            //         .catch((err) => {
+            //           console.log(err);
+            //         })
+            // }
+        }
+        
+    },
 }
 </script>
 <style lang="scss">
@@ -102,10 +173,28 @@ body{
         margin-bottom: 7px;
     }
 }
+.myButtonSearch{
+    // margin-top: 1em;
+    max-width: 17.7em;
+    position: absolute;
+    top: 31.35em;
+    left: -20em;
+    // top: -2.65em;
+    // left: -20.5em;
+}
+@media (min-width: 1200px) {
+ .myButtonSearch{
+        width: 100%;
+    }   
+}
 
 @media (max-width: 1240px){
     .card{
         width: 15em;
+    }
+    .myButtonSearch{
+        // width: 100%;
+        width: 100%;
     }
 }
 

@@ -9,7 +9,7 @@
                 <hr class="active-line1">
                  <!-- <img src="../../public/img/Active_line.svg" class="active-link" alt="active line"> -->
                  <!-- <hr class="active-hr1"> -->
-                <a href="#" class="profileWrapper__header-text">ACCOUNT INFORMATION</a>
+                <a href="/profile2" class="profileWrapper__header-text">ACCOUNT INFORMATION</a>
             </header>
             <div class="profileWrapper__content" >
                 <div class="profileWrapper__avatar">
@@ -80,7 +80,7 @@
                     <h3 class="profileWrapper__column1-text">Category. 
                         <i style="font-size: 1em; text-transform: none;">You are a {{myuser.mycategory}}.</i> 
                         <br>
-                        <i v-if="myuser.mycategory == ''" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;">Please chose your role.</i> 
+                        <i v-if="myuser.mycategory == '' || myuser.mycategory == 'None'" style="font-size: 0.8em; text-transform: none; padding-bottom: -10em; color: #f64b4b;">Please chose your role.</i> 
                     </h3>
                     <div class="categoryChoice">
                         <mySelect2
@@ -99,7 +99,7 @@
                     ></mySelect2>
                         <!-- <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-if="myuser.mycategory == ''" @change="getCategory($event)" style="max-width: 10em; margin-top: -0.65em"></mySelect> 
                         <mySelect class="" optionOne="Choose your role" optionTwo="Teacher" optionThree="Student" optionFour="None" v-else @change="getCategory($event)" style="max-width: 10em"></mySelect> -->
-                        <myButton1 button1_text="Done" @click="btnChooseCategory" v-if="myuser.mycategory == ''" style="width: 6em; margin-top: 1.5em; margin-top: 0.85em "/>
+                        <myButton1 button1_text="Done" @click="btnChooseCategory" v-if="myuser.mycategory == ''" style="width: 6em; margin-top: 1.5em;  "/>
                         <myButton1 button1_text="Done" @click="btnChooseCategory" v-else style="width: 6em; margin-top: 1.5em; "/>
                     </div>
                  
@@ -227,6 +227,7 @@ export default {
             .then(res => {
                 console.log('ok');
                 console.log(res.data);
+                location.reload();
             })
             .catch(err => {
                 console.log('Updated category was failed ', err.response.data)

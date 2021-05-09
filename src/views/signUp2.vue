@@ -4,8 +4,8 @@
         <background class="background1"></background>
         <div class="background1__wrapper">
             <mysignTopText class="mysignTopText" signTopText="Complete your account"></mysignTopText>
-            <myInput1 input1_type="password" class="input1" input1_placeholder="Password" v-on:change-my-input="getPassword"/>
-            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Confirm password" />
+            <myInput1 input1_type="password" class="input1" input1_placeholder="Password" v-model="veepass1" v-on:change-my-input="getPassword"/>
+            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Confirm password" v-model="veepass2" />
             <div class="checkboxWrapper">
                 <div class="checkboxWrapper__el">
                     <input type="checkbox" name="agree1" class="checkboxWrapper__el-checkbox" >
@@ -29,6 +29,8 @@
 <script>
 import apiService from '../helpers/api'
 import  myData  from '../helpers/signUpData'
+import useValidate from '@vuelidate/core'
+import { required, minLength, sameAs } from '@vuelidate/validators'
 
 // import { getStartedData } from './signUp1'
 
@@ -56,23 +58,47 @@ export default {
     },
     data() {
         return {
-          getData: {
+            getData: {
               ...myData.data
-          }
+            },
+            v$: useValidate(),
+            veepass1: '',
+            veepass2: '',
+            standartData: {
+                mycategory: 'None',
+                users_id: '',
+                phone_number: '0508233592',
+                gender: "None",
+                country: "None"
+            }
+        }
+    },
+    validations() {
+        return {
+            veepass1: { required, minLength: minLength(5) },
+            veepass2: { required, minLength: minLength(5), sameAs: sameAs(this.veepass2) },
         }
     },
     methods: {
         async getDone(){
+            this.v$.$validate()
             // console.log('data...:', {...myData.data})
         await apiService.post('users/sign-up', {...myData.data})
             .then(res => {
                 this.$router.push('signUp3')
                 console.log('ok');
                 console.log(res.data);
+                this.standartData.users_id = res.data.id;
+                console.log('Id:: ' + res.data.id)
+                console.log('my data: ', {...this.standartData})
             })
             .catch(err => {
                 console.log('Created acc was failed ', err.response.data)
             });
+        await apiService.post(`category/create-category`, {...this.standartData})
+            .then((res) => {
+                console.log(res.data)
+            })
         },
         getPassword(data) {
             myData.data.mypassword = data
