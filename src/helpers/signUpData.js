@@ -4,7 +4,7 @@ class RegData {
             this.lname = lname || '',
             this.username = username || '',
             this.email = email || '',
-            this.mypassword = mypassword || '' 
+            this.mypassword = mypassword || ''
         }
 }
 

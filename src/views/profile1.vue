@@ -13,9 +13,16 @@
             </header>
             <div class="profileWrapper__content" >
                 <div class="profileWrapper__avatar">
-                    <img src="../../public/img/avatars/avatar1.svg" alt="avatar">
+                    <img :src="myuser.photo" class="myAvatar" alt="avatar">
                     <br>
-                    <button class="btn-changePhoto">
+                    <input 
+                        class="btn-changePhoto" 
+                        style="display:none"
+                        value="Chhos" type="file" 
+                        @change="onFileSelected"
+                        ref="inputFile"
+                    />
+                    <button @click="$refs.inputFile.click()" class="btn-changePhoto" style="margin-left: 2em; margin-top:1em;">
                         <img src="../../public/img/Vector_changePhoto.svg">
                         Change photo
                     </button>
@@ -159,6 +166,7 @@ export default {
         mySelectGender: 'Select your gender',
         mySelectCountry: 'Select your country',
         mySelectRole: 'Select your role',
+        selectedFile: null,
         myuser: {
             id: '',
             fname: '',
@@ -169,6 +177,7 @@ export default {
             phone_number: '',
             gender: '',
             country: '',
+            photo: '',
         },
         nameUpdate: {
             id: '',
@@ -181,7 +190,11 @@ export default {
             phone_number: '',
             gender: '',
             country: '',
-        }
+        },
+        // mynewphoto: {
+        //     photo: ''
+        // },
+        photo: null,
       }
     },
     beforeCreate() {
@@ -194,6 +207,7 @@ export default {
               this.myuser.lname = res.data.user.lname;
               this.myuser.username = res.data.user.username;
               this.myuser.email = res.data.user.email;
+              this.myuser.photo = res.data.user.photo;
             //   console.log('my id: ' + this.myuser.id)
             })
             .catch((err) => {
@@ -213,8 +227,9 @@ export default {
     },
     methods: {
         async btnChooseCategory(){
-            console.log('data...:', {...this.nameUpdate})
-            console.log('dataCategory...:', {...this.categoryUpdate})
+            // console.log('data...:', {...this.nameUpdate})
+            // console.log('dataCategory...:', {...this.categoryUpdate})
+            // console.log('myphoto:' + this.photo)
         await apiService.put('users/update', {...this.nameUpdate}) 
             .then(res => {
                 console.log('ok');
@@ -226,11 +241,20 @@ export default {
         await apiService.put('category/update', {...this.categoryUpdate}) 
             .then(res => {
                 console.log('ok');
-                console.log(res.data);
-                location.reload();
+                console.log(res.data); 
             })
             .catch(err => {
                 console.log('Updated category was failed ', err.response.data)
+            });
+        
+        await apiService.put("/users/photo", {'photo': this.photo})
+            .then(() => {
+                console.log('photo: ok');
+                location.reload();
+                // console.log(res);
+            })
+            .catch(err => {
+                console.log('Updated photo was failed ', err.response.data)
             });
         },
         optionSelect(option) {
@@ -263,6 +287,21 @@ export default {
         // getCategory:function(event) {
         //     this.categoryUpdate.mycategory = event;
         // },
+        onFileSelected(event) {
+            this.selectedFile =  event.target.files[0];
+             
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onloadend = () => {
+                // console.log('Base63: ' + reader.result)
+                // this.mynewphoto.photo = reader.result;
+                this.photo = reader.result;
+                // console.log({'photo': this.photo})
+            }
+            reader.readAsDataURL(file);
+            
+            
+        },
         
 
     }
@@ -337,6 +376,16 @@ body{
 }
 .input1Prof{
     width: 19.5em;
+}
+.myAvatar {
+    // max-height: 8em;
+    // max-width: 8em;
+    border-radius: 50%;
+    width: 8em;
+    height: 8em;
+    margin-top: 1.2em;
+    margin-left: 2.2em;
+
 }
 
 .btn-changePhoto{

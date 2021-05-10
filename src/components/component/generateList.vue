@@ -1,7 +1,7 @@
 <template>
     <div class="cardWrapper" v-if="mycountry == ''|| mycountry =='Select country'" >
         <div class="card" v-for="user in users" :key="user.id" > 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
+            <img class="card__img" :src="user.photo" alt="avatar"/>
             <section class="card__info"> 
               <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
               <p class="card__text">{{user.email}} </p>
@@ -12,7 +12,7 @@
     </div>   
     <div class="cardWrapper" v-else >
         <div class="card" v-for="user in users2" :key="user.id" > 
-            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
+            <img class="card__img" :src="user.photo" alt="avatar"/>
             <section class="card__info"> 
               <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
               <p class="card__text">{{user.email}} </p>
@@ -61,9 +61,9 @@ export default {
     },
     data() {
       return {
-        users: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: ''}],
-        users2: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: this.mycountry}],
-        users3: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: this.mycategory, country: ''}],
+        users: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: '', photo: ''}],
+        users2: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: this.mycountry, photo: ''}],
+        users3: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: this.mycategory, country: '', photo: ''}],
       }
       
     },
