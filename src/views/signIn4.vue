@@ -4,14 +4,15 @@
         <background class="background1"></background>
         <div class="background1__wrapper4">
             <mysignTopText class="mysignTopText" signTopText="Reset your password"></mysignTopText>
-            <myInput1 input1_type="password" class="input1" input1_placeholder="New password" />
-            <myInput2 input1_type="password" class="input1 mb-13px mb-21px" input1_placeholder="Confirm password" />
-            <myButton1 class="myButton1" button1_text="Reset"/>
+            <myInput1 input1_type="password" class="input1" input1_placeholder="New password"  v-on:change-my-input="getResetPass"/>
+            <myInput2 input1_type="password" class="input1 mb-13px mb-21px" input1_placeholder="Confirm password" v-on:change-my-input="getResetPass2" />
+            <myButton1 class="myButton1" button1_text="Reset" @click="resetPass"/>
         </div>
     </div>
 </template>
 
 <script>
+import apiService from '../helpers/api';
 
 import background from '../components/controllers/backgrounds/background1.vue'
 import myButton1 from '../components/controllers/button1.vue'
@@ -29,7 +30,40 @@ export default {
         background,
         mysignTopText,
         myHeader,
-    }
+    },
+    data() {
+        return {
+            myuser: {
+                id: '',
+                mypassword: ''
+            }
+        }
+    },
+    beforeCreate() {
+        apiService.get("users/profile")
+            .then((res) => {
+              this.myuser.id = res.data.user.id;
+              
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+    },
+    methods: {
+        async resetPass() {
+            console.log({...this.myuser})
+            await apiService.put("users/update-password", {...this.myuser})
+                .then((res) => {
+                  console.log(res)
+                })
+                .catch((err) => {
+                  console.log(err);
+                })
+        },
+        getResetPass(data) {
+            this.myuser.mypassword = data;
+        }
+    },
 }
 </script>
 

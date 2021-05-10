@@ -10,12 +10,30 @@
                 <a href="#" class="myProfHeader__link ">{{headerThirdText}}</a>
             </div>
             <div class="myProfHeader__dropdown">
-                <select name="choice-header" id="choice-header" class="myProfHeader__dropdown-select" onchange="javascript:handleSelect(this)">
+                <!-- <select name="choice-header" id="choice-header" class="myProfHeader__dropdown-select" onChange="javascript:handleSelect(this)">
                     <option value="account" selected>{{myuser.fname}} {{myuser.lname}}</option>
                     <option value="settings">Settings</option>
                     <option value="about">About</option>
-                    <option value="contact">Contact</option>
-                </select>
+                    <option value="signIn1"><a href="#" @click="deleteAccount"></a > Delete acc. </option>
+                </select> -->
+                <mySelect2
+                        class="myProfHeader__dropdown-select"
+                        style="background-color: #fff; min-width: 10em; margin: 0 auto;"
+                        :options="role"
+                        @select="selectRole"
+                        :selectedName="myuser.fname + ' ' + myuser.lname" 
+                        v-on:change="getDisplayName($event)"
+                        v-if="(mySelectRole == 'Artem Chornyi')"
+                ></mySelect2>
+                <mySelect2
+                        class="myProfHeader__dropdown-select"
+                        style="background-color: #fff; min-width: 10em; margin: 0 auto;"
+                        :options="role"
+                        @select="selectRole"
+                        :selectedName="mySelectRole" 
+                        v-on:change="getDisplayName($event)"
+                        v-else
+                ></mySelect2>
             </div>
         </div>
     </div>
@@ -24,9 +42,15 @@
 <script>
 import apiService from '../../../helpers/api';
 
+import mySelect2 from '../../controllers/select2';
+
+
 
 export default {
     name: "signTopText",
+    components: {
+        mySelect2,
+    },
     props: {
         headerFirstText: String,
         headerSecondText: String,
@@ -37,18 +61,56 @@ export default {
             myuser: {
                 fname: '',
                 lname: '',
-            }
+            },
+            userId: '',
+            role: [
+                {name: "Profile", value: 1},
+                {name: "Settings", value: 2},
+                {name: "Delete acc", value: 3},
+            ],
+            mySelectRole: 'Artem Chornyi',
+
         }
     },
     methods: {
         handleSelect(elm){
            window.location = elm.value+".vue";
-        }
+        },
+        selectRole(option) {
+            this.mySelectRole = option.name;
+        },
+        getDisplayName(e){
+            console.log(e.target.value);
+            if(this.mySelectRole == 'Deleted acc'){
+                apiService.delete(`/users/delete/${this.userId}`)
+                                .then(() => {
+                                  console.log('Deleted: ok')
+                                  this.$router.push('signIn1')
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                })
+            }
+        },
+        // deleteAccount() {
+        //     apiService.delete(`/users/delete/${this.userId}`)
+        //         .then(() => {
+        //           console.log('Deleted: ok')
+        //           this.$router.push('signIn1')
+        //         })
+        //         .catch((err) => {
+        //           console.log(err);
+        //         })
+        // }
+    },
+    computed: {
+        
     },
     beforeCreate() {
         apiService.get("users/profile")
             .then((res) => {
               console.log(res.data.user)
+              this.userId = res.data.user.id
               this.myuser.fname = res.data.user.fname
               this.myuser.lname = res.data.user.lname
             })
@@ -95,6 +157,9 @@ body{
         letter-spacing: 0.28px;
         text-decoration: none;
         color: #252F48;
+        border: none;
+        border-radius: 0px;
+        border-color: #fff;
        
     }
     // &__link-active1{

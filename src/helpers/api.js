@@ -29,8 +29,18 @@ class ApiService {
         'Authorization': `JWT ${window.localStorage.getItem('mytoken')}` //${mySignData.checkJWT()
       }
     }
-    console.log(config)
+    // console.log(config)
     return this.http.put(url, body, config);
+  }
+  delete(url){
+    const config = {
+      headers: {
+        'Authorization': `JWT ${window.localStorage.getItem('mytoken')}` //${mySignData.checkJWT()
+      }
+    }
+    // console.log(config)
+    return this.http.get(url, config);
+    // return this.http.get(url);
   }
 
   // getJwt(url) {

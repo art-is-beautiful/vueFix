@@ -19,7 +19,7 @@
                     <myInput1 input1_type="text" class="input1 input1Prof" :value="emailupdate.email" />
                 </div>
             </div>
-            <a href="#" class="changePass">
+            <a href="signin4" class="changePass">
                 CHANGE PASSWORD
                 <img class="changePass__arrow" src="../../public/img/Vector_arrow_right.svg" alt="arrow">
             </a>
