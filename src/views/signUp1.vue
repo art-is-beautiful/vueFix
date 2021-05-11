@@ -8,7 +8,7 @@
                 <myInput1 input1_type="text" class="input1 input1Wrapper__small" input1_placeholder="Name" v-model="veefname" v-on:change-my-input="getFname"/>
                 <myInput2 input1_type="text" class="input1 " input1_placeholder="Last name" v-model="veelname" v-on:change-my-input="getLname"/>   
             </div>
-            <span v-if="v$.veefname.$error" style="color:red; font-size:12px; width:55%"> <br> {{v$.veefname.$errors[0].$message}}</span>
+            <span v-if="v$.veefname.$error" style="color:red; font-size:12px; width:55%"> <br> Error {{v$.veefname.$errors[0].$message}}</span>
             <span v-if="v$.veelname.$error" style="color:red; font-size:12px; width:45%"> <br> {{v$.veelname.$errors[0].$message}}</span>
             <myInput1 input1_type="text" class="input1" input1_placeholder="Username" v-model="veeusername" v-on:change-my-input="getUsername"/>
             <span v-if="v$.veeusername.$error" style="color:red; font-size:12px; width:100%">{{v$.veeusername.$errors[0].$message}}</span>
@@ -49,11 +49,17 @@ export default {
             veelname: '',
             veeusername: '',
             veeemail: '',
+            validator: {
+                fname: '',
+                lname: '',
+                username: '',
+                email: ''
+            }
             // getStartedData: {
-            //     fname: '',
-            //     lname: '',
-            //     username: '',
-            //     email: '',
+                // fname: '',
+                // lname: '',
+                // username: '',
+                // email: '',
             //     mypassword: 'lalala'
             // }
         }
@@ -67,39 +73,56 @@ export default {
         }
     },
     methods: {
+        
         async getStarted() {
-            this.v$.$validate()
-            console.log(this.getStartedData)
-            this.$router.push('signUp2')
-            // if(!this.v$.$error){
-            // await apiService.post('users/sign-up', this.getStartedData)
-            //     .then(res => {
-            //         this.$router.push('signUp2')
-            //         console.log('ok');
-            //         console.log(res.data);
-            //     })
-            //     .catch(err => {
-            //         console.log('Created acc was failed ', err.response.data)
-            //     });
-            // } else {
-            //     console.log('Errrrrooooooor') 
-            // }
+            await this.v$.$validate()
+            
+           
+            if(!this.v$.$error){
+                this.$router.push('signUp2')
+            } else {
+                console.log('Errrrrooooooor') 
+            }
         },
         getFname(data) {
             // this.getStartedData.fname = data
-            myData.data.fname = data
+            if(data.length > 3){
+                myData.data.fname = data
+                this.veefname = data
+            }
+            else {
+                this.validator.fname = 'error'
+            }
         },
         getLname(data) {
             // this.getStartedData.lname = data
-            myData.data.lname = data
+            if(data.length > 3){
+                myData.data.lname = data
+                this.veelname = data
+            }
+            else {
+                this.validator.lname = 'error'
+            }
         },
         getUsername(data) {
             // this.getStartedData.username = data
-            myData.data.username = data
+            if(data.length > 3){
+                myData.data.username = data
+                this.veeusername = data
+            }
+            else {
+                this.validator.username = 'error'
+            }
         },
         getEmail(data) {
             // this.getStartedData.email = data
-            myData.data.email = data
+            if(data.length > 3){
+                myData.data.email = data
+                this.veeemail = data
+            }
+            else {
+                this.validator.email = 'error'
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 <template>
-    <div class="cardWrapper" v-if="mycountry == ''|| mycountry =='Select country'" >
+    <div class="cardWrapper" 
+        v-if="(mycountry === ''|| mycountry ==='Select country') && (mycategory === '' || mycategory === 'Select your role') && additionalCategory.length < 1"
+     > 
         <div class="card" v-for="user in users" :key="user.id" > 
             <img class="card__img" :src="user.photo" alt="avatar"/>
             <section class="card__info"> 
@@ -9,8 +11,8 @@
               <p class="card__text-main">Country:  <span class="card__text">{{user.country}}</span></p>
             </section>
         </div>
-    </div>   
-    <div class="cardWrapper" v-else >
+    </div>  
+    <div class="cardWrapper" v-else-if="mycountry" >
         <div class="card" v-for="user in users2" :key="user.id" > 
             <img class="card__img" :src="user.photo" alt="avatar"/>
             <section class="card__info"> 
@@ -21,8 +23,19 @@
             </section>
         </div>
     </div>  
-    <!-- <div class="cardWrapper" v-else-if="mycategory != '' && mycategory != 'Select your role'" >
+    <div class="cardWrapper" v-else-if="mycategory" style="z-index: 10" >
         <div class="card" v-for="user in users3" :key="user.id" > 
+            <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
+            <section class="card__info"> 
+              <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
+              <p class="card__text">{{user.email}} </p>
+              <p class="card__text-main">Role:  <span class="card__text"> {{user.mycategory}} </span></p>
+              <p class="card__text-main">Country:  <span class="card__text">{{user.country}}</span></p>
+            </section>
+        </div>
+    </div>  
+    <!-- <div class="cardWrapper" v-else >
+        <div class="card" v-for="user in users1" :key="user.id" > 
             <img class="card__img" src="../../../public/img/card_img_1.svg" alt="avatar"/>
             <section class="card__info"> 
               <h3 class="card__nickname">{{user.fname}} {{user.lname}} </h3>
@@ -64,6 +77,7 @@ export default {
         users: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: '', photo: ''}],
         users2: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: '', country: this.mycountry, photo: ''}],
         users3: [{id: 1, fname: '', lname: '', username: '', email: '', mycategory: this.mycategory, country: '', photo: ''}],
+        additionalCategory: '',
       }
       
     },
@@ -80,7 +94,8 @@ export default {
     methods: {
         //apiService.get() - select country by props
         async btnSearch() {   
-            // if(this.mycountry != '' || this.mycountry != 'Select country'){
+            if(this.mycountry){
+                // this.mycategory == ''
                 // console.log('myCountry: ' + this.mycountry)
                 await apiService.get(`users/users-country/${this.mycountry}`)
                     .then((res) => {
@@ -90,18 +105,20 @@ export default {
                     .catch((err) => {
                       console.log(err);
                     })
-            // }
-            // if(this.mycategory != '' || this.mycategory != 'Select your category'){
-            //     console.log(this.mycategory)
-            //     await apiService.get(`users/users-role/${this.mycategory}`)
-            //         .then((res) => {
-            //           console.log(res.data.users)
-            //           this.users3 = res.data.users;
-            //         })
-            //         .catch((err) => {
-            //           console.log(err);
-            //         })
-            // }
+            }
+            if(this.mycategory){
+                // this.mycountry == ''
+                // console.log(this.mycategory)
+                await apiService.get(`users/users-role/${this.mycategory}`)
+                    .then((res) => {
+                      console.log(res.data.users)
+                      this.users3 = res.data.users;
+                      this.additionalCategory = 'True'
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    })
+            }
         }
         
     },

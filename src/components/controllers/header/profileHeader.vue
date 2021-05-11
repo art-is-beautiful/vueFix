@@ -2,27 +2,24 @@
     <div class="myProfHeader">
         <div class="myProfHeader__wrapper">
             <div class="myProfHeader__nav">
-                <a href="#" class="myProfHeader__link ">{{headerFirstText}}</a>
+                <a href="" class="myProfHeader__link ">{{headerFirstText}}</a>
                 <!-- <img src="../../../../public/img/Active_line.svg" class="myHeader__link-active1" alt="active line"> -->
                 <span class="arrow_right"> > </span>
-                <a href="#" class="myProfHeader__link ">{{headerSecondText}}</a>
+                <a href="/profile1" class="myProfHeader__link ">{{headerSecondText}}</a>
                 <span class="arrow_right" v-if="headerThirdText"> > </span>
                 <a href="#" class="myProfHeader__link ">{{headerThirdText}}</a>
             </div>
             <div class="myProfHeader__dropdown">
-                <!-- <select name="choice-header" id="choice-header" class="myProfHeader__dropdown-select" onChange="javascript:handleSelect(this)">
+                <select name="delete acc" id="choice-header" class="myProfHeader__dropdown-select" v-on:change="getDisplayName" onChange="javascript:handleSelect(this)">
                     <option value="account" selected>{{myuser.fname}} {{myuser.lname}}</option>
-                    <option value="settings">Settings</option>
-                    <option value="about">About</option>
-                    <option value="signIn1"><a href="#" @click="deleteAccount"></a > Delete acc. </option>
-                </select> -->
-                <mySelect2
+                    <option value="signIn1"> Delete acc. </option>
+                </select>
+                <!-- <mySelect2
                         class="myProfHeader__dropdown-select"
                         style="background-color: #fff; min-width: 10em; margin: 0 auto;"
                         :options="role"
                         @select="selectRole"
                         :selectedName="myuser.fname + ' ' + myuser.lname" 
-                        v-on:change="getDisplayName($event)"
                         v-if="(mySelectRole == 'Artem Chornyi')"
                 ></mySelect2>
                 <mySelect2
@@ -31,9 +28,9 @@
                         :options="role"
                         @select="selectRole"
                         :selectedName="mySelectRole" 
-                        v-on:change="getDisplayName($event)"
+                        v-on:change="getDisplayName"
                         v-else
-                ></mySelect2>
+                ></mySelect2> -->
             </div>
         </div>
     </div>
@@ -42,14 +39,14 @@
 <script>
 import apiService from '../../../helpers/api';
 
-import mySelect2 from '../../controllers/select2';
+// import mySelect2 from '../../controllers/select2';
 
 
 
 export default {
     name: "signTopText",
     components: {
-        mySelect2,
+        // mySelect2,
     },
     props: {
         headerFirstText: String,
@@ -65,7 +62,7 @@ export default {
             userId: '',
             role: [
                 {name: "Profile", value: 1},
-                {name: "Settings", value: 2},
+                {name: "admin", value: 2},
                 {name: "Delete acc", value: 3},
             ],
             mySelectRole: 'Artem Chornyi',
@@ -79,18 +76,20 @@ export default {
         selectRole(option) {
             this.mySelectRole = option.name;
         },
-        getDisplayName(e){
-            console.log(e.target.value);
-            if(this.mySelectRole == 'Deleted acc'){
-                apiService.delete(`/users/delete/${this.userId}`)
-                                .then(() => {
-                                  console.log('Deleted: ok')
-                                  this.$router.push('signIn1')
-                                })
-                                .catch((err) => {
-                                  console.log(err);
-                                })
-            }
+        getDisplayName(){
+            // this.$router.push({path:'/admin' })
+            // console.log(e.target.value);
+            
+            apiService.delete(`users/delete/${this.userId}`)
+                            .then(() => {
+                              console.log('Deleted: ok')
+                              this.$router.push('signUp1')
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            })
+
+            
         },
         // deleteAccount() {
         //     apiService.delete(`/users/delete/${this.userId}`)

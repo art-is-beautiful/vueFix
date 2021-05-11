@@ -2,8 +2,9 @@
   <div>
       <div class="content__admin"> 
         <header class="headerAdm"> 
-          <button class="btn-adm-search">  <img src="../../../public/img/Vector_admin_search.svg" alt="btn-search"/></button>
-          <input class="headerAdm__search" type="text" placeholder="Type here to search..."/>
+          <button class="btn-adm-search" @click="btnSearchUser">  <img src="../../../public/img/Vector_admin_search.svg" alt="btn-search"/></button>
+          <input class="headerAdm__search" type="text" placeholder="Type here to search..." v-model="username" />
+    
         </header>
       </div>
       <section class="table"> 
@@ -15,8 +16,24 @@
           <p class="table__header-text">Level </p>
           <p class="table__header-text">E-mail </p>
         </header>
-        <div class="table__content-wrapper">
+        <div class="table__content-wrapper" v-if="username == null">
           <div class="table__main" v-for="user in users" :key="user.id"> 
+            <p class="table__content-text">{{user.fname}} </p>
+            <p class="table__content-text">{{user.lname}} </p>
+            <p class="table__content-text">{{user.username}} </p>
+            <p class="table__content-text">Completed</p>
+            <div class="wrapperAdmin-select"> 
+              <select class="table__content-text table__content-select" name="status">
+                <option value="trash">Trash </option>
+                <option value="silver">Silver </option>
+                <option value="gold" selected="selected">Gold</option>
+              </select>
+            </div>
+            <p class="table__content-text text-trans-lower">{{user.email}}</p>
+          </div>
+        </div>
+        <div class="table__content-wrapper" v-else>
+          <div class="table__main" v-for="user in users2" :key="user.id"> 
             <p class="table__content-text">{{user.fname}} </p>
             <p class="table__content-text">{{user.lname}} </p>
             <p class="table__content-text">{{user.username}} </p>
@@ -41,7 +58,10 @@ export default {
     name: "admManage",
     data() {
       return {
-        users: [{id: 1, fname: '', lname: '', username: '', email: ''}]
+        users: [{id: 1, fname: '', lname: '', username: '', email: ''}],
+        users2: [{id: 1, fname: '', lname: '', username: '', email: ''}],
+        
+        username: null,    
       }
     },
     beforeCreate() {
@@ -52,6 +72,23 @@ export default {
         .catch((err) => {
           console.log(err);
         })
+    },
+    methods: {
+      async btnSearchUser(){
+        console.log(this.username);
+        await apiService.get(`users/get-username/${this.username}`)
+        .then((res) => {
+          console.log(res.data.users);
+          this.users2 = res.data.users;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      },
+      // getUsername(data) {
+      //   // console.log(data)
+      //   this.username = data;
+      // }
     }
 }
 </script>

@@ -39,7 +39,7 @@ class ApiService {
       }
     }
     // console.log(config)
-    return this.http.get(url, config);
+    return this.http.delete(url, config);
     // return this.http.get(url);
   }
 

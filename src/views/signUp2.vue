@@ -5,7 +5,9 @@
         <div class="background1__wrapper">
             <mysignTopText class="mysignTopText" signTopText="Complete your account"></mysignTopText>
             <myInput1 input1_type="password" class="input1" input1_placeholder="Password" v-model="veepass1" v-on:change-my-input="getPassword"/>
-            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Confirm password" v-model="veepass2" />
+            <span v-if="v$.veepass1.$error" style="color:red; font-size:12px; width:100%; margin-top: -3em" >{{v$.veepass1.$errors[0].$message}}</span>
+            <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Confirm password" v-model="veepass2" v-on:change-my-input="getPassword2" />
+            <span v-if="v$.veepass2.$error" style="color:red; font-size:12px; width:100%; margin-top: -3em" >{{v$.veepass2.$errors[0].$message}}</span>
             <div class="checkboxWrapper">
                 <div class="checkboxWrapper__el">
                     <input type="checkbox" name="agree1" class="checkboxWrapper__el-checkbox" >
@@ -14,6 +16,7 @@
                 <div class="checkboxWrapper__el mb-13px">
                     <input type="checkbox" name="agree2" class="checkboxWrapper__el-checkbox">
                     <label for="agree2" class="checkboxWrapper__label">I agree to the myFixer.com <a href="#" class="checkboxWrapper__label-link"> Privacy Policy</a></label>
+                    <!-- <span v-if="v$.veeemail.$error" style="color:red; font-size:12px; width:100%; margin-top: -3em" >{{v$.veeemail.$errors[0].$message}}</span> -->
                 </div>
                 <!-- <form action="index.html" method="POST" id="recaptcha-small">
                     <div class="g-recaptcha" data-sitekey="6Ld4QXEaAAAAAKBADEdYxA8T5EeBB7Ljk-190DjR"></div>
@@ -76,32 +79,56 @@ export default {
     validations() {
         return {
             veepass1: { required, minLength: minLength(5) },
-            veepass2: { required, minLength: minLength(5), sameAs: sameAs(this.veepass2) },
+            veepass2: { required, minLength: minLength(5), sameAs: sameAs(this.veepass1) },
         }
     },
     methods: {
         async getDone(){
-            this.v$.$validate()
+            await this.v$.$validate()
+            if(!this.v$.$error){
+                await apiService.post('users/sign-up', {...myData.data})
+                    .then(res => {
+                        this.$router.push('signUp3')
+                        console.log('ok');
+                        console.log(res.data);
+                        this.standartData.users_id = res.data.id;
+                        console.log('Id:: ' + res.data.id)
+                        console.log('my data: ', {...this.standartData})
+                    })
+                    .catch(err => {
+                        console.log('Created acc was failed ', err.response.data)
+                    });
+                await apiService.post(`category/create-category`, {...this.standartData})
+                    .then((res) => {
+                        console.log(res.data)
+                    })
+            } else {
+                console.log('Errrrrooooooor') 
+            }
             // console.log('data...:', {...myData.data})
-        await apiService.post('users/sign-up', {...myData.data})
-            .then(res => {
-                this.$router.push('signUp3')
-                console.log('ok');
-                console.log(res.data);
-                this.standartData.users_id = res.data.id;
-                console.log('Id:: ' + res.data.id)
-                console.log('my data: ', {...this.standartData})
-            })
-            .catch(err => {
-                console.log('Created acc was failed ', err.response.data)
-            });
-        await apiService.post(`category/create-category`, {...this.standartData})
-            .then((res) => {
-                console.log(res.data)
-            })
+        // await apiService.post('users/sign-up', {...myData.data})
+        //     .then(res => {
+        //         this.$router.push('signUp3')
+        //         console.log('ok');
+        //         console.log(res.data);
+        //         this.standartData.users_id = res.data.id;
+        //         console.log('Id:: ' + res.data.id)
+        //         console.log('my data: ', {...this.standartData})
+        //     })
+        //     .catch(err => {
+        //         console.log('Created acc was failed ', err.response.data)
+        //     });
+        // await apiService.post(`category/create-category`, {...this.standartData})
+        //     .then((res) => {
+        //         console.log(res.data)
+        //     })
         },
         getPassword(data) {
-            myData.data.mypassword = data
+            myData.data.mypassword = data;
+            this.veepass1 = data;
+        },
+        getPassword2(data) {
+            this.veepass2 = data;
         }
     }
 

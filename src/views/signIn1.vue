@@ -5,7 +5,9 @@
         <div class="background1__wrapper">
             <mysignTopText class="mysignTopText" signTopText="Sign in"></mysignTopText>
             <myInput1 input1_type="text" class="input1" input1_placeholder="@email" v-on:change-my-input="getEmail" v-model="veeemail" />
+            <span v-if="v$.veeemail.$error" style="color:red; font-size:12px; width:100%; margin-top: -3em" >{{v$.veeemail.$errors[0].$message}}</span>
             <myInput2 input1_type="password" class="input1 mb-13px" input1_placeholder="Password" v-on:change-my-input="getPassword" v-model="veepassword"/>
+            <span v-if="v$.veepassword.$error" style="color:red; font-size:12px; width:100%; margin-top: -3em" >{{v$.veepassword.$errors[0].$message}}</span>
             <div class="background1__forgotPass mb-13px"><a href="#" class="background1__forgotPass-text">Forgot password?</a></div>
             <myButton1 class="myButton1" button1_text="Sign in" @click="btnSignIn"/>
         </div>

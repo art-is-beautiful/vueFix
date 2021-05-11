@@ -2,7 +2,7 @@
     <div>
         <nav>
             <div class="navWrapper">
-            <a href="#" class="navWrapper__logo">
+            <a href="/signIn1" class="navWrapper__logo">
                 <img src="../../../public/img/leftnav/Vector_navLogo.svg" alt="">
             </a>
             <section class="navWrapper__menu">
