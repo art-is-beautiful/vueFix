@@ -22,7 +22,7 @@
                     <div class="g-recaptcha" data-sitekey="6Ld4QXEaAAAAAKBADEdYxA8T5EeBB7Ljk-190DjR"></div>
                     <br>
                 </form> -->
-                <myRecaptcha></myRecaptcha>
+                <!-- <myRecaptcha></myRecaptcha> -->
             </div>
             <myButton1 class="myButton1" button1_text="Done!" @click="getDone"/>
         </div>
@@ -43,7 +43,7 @@ import myInput1 from '../components/controllers/input1.vue'
 import myInput2 from '../components/controllers/input1.vue'
 import mysignTopText from '../components/controllers/signTopText.vue'
 import myHeader from '../components/controllers/header/signHeader.vue'
-import myRecaptcha from '../components/controllers/recaptcha.vue'
+// import myRecaptcha from '../components/controllers/recaptcha.vue'
 
 export default {
     name: 'signIn1',
@@ -54,7 +54,7 @@ export default {
         background,
         mysignTopText,
         myHeader,
-        myRecaptcha,
+        // myRecaptcha,
     },
     mounted() {
 

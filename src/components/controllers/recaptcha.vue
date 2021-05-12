@@ -7,10 +7,13 @@
 </template>
 
 <script>
+
+require('dotenv').config()
+
 export default {
   data () {
     return {
-      sitekey: '6Ld4QXEaAAAAAKBADEdYxA8T5EeBB7Ljk',
+      sitekey: process.env.G_RECAPTURE,
       widgetId: 0
     }
   },

@@ -5,7 +5,7 @@ import axios from 'axios';
 class ApiService {
   constructor() {
     this.http = axios;
-    this.http.defaults.baseURL = 'http://localhost:3002';
+    this.http.defaults.baseURL = 'http://localhost:3000';
   }
 
   get(url) {
