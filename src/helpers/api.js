@@ -5,7 +5,7 @@ import axios from 'axios';
 class ApiService {
   constructor() {
     this.http = axios;
-    this.http.defaults.baseURL = 'http://localhost:3000';
+    this.http.defaults.baseURL =  'http://koa-lb-908576292.eu-central-1.elb.amazonaws.com' //'http://localhost:3000';
   }
 
   get(url) {
